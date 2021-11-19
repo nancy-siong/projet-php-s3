@@ -1,7 +1,7 @@
 <?php
 require_once File::build_path(array('model','ModelVoiture.php'));
 
-class ControllerVoiture {
+class ControllerGlasses {
 
     public static function readAll()
     {
