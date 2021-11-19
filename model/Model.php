@@ -9,7 +9,6 @@ class Model
 
     private static function init()
     {
-
         $hostname = Conf::getHostname();
         $database_name = Conf::getDatabase();
         $login = Conf::getLogin();
@@ -29,7 +28,6 @@ class Model
 
     public static function getPDO()
     {
-
         if (is_null(self::$pdo)) {
             self::init();
         }
