@@ -1,5 +1,5 @@
 <?php
-require_once File::build_path(array('model','ModelVoiture.php'));
+require_once File::build_path(array('model','ModelGlasses.php'));
 
 class ControllerGlasses {
 

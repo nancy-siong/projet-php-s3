@@ -1,20 +1,15 @@
 <?php
 
-class File
-{
-    public static function build_path($path_array)
-    {
+class File{
+
+    public static function build_path($path_array){
         // $ROOT_FOLDER (sans slash à la fin) vaut
         // "/home/ann2/votre_login/public_html/TD5" à l'IUT 
-
-
-        //$ROOT_FOLDER = __DIR__;
-        //return $ROOT_FOLDER . '/' . join('/', $path_array);
-
         $DS = DIRECTORY_SEPARATOR;
-        $ROOT_FOLDER = __DIR__ . $DS . "..";
-        return $ROOT_FOLDER . DIRECTORY_SEPARATOR . join($DS, $path_array);
-    }
+        $ROOT_FOLDER = __DIR__;
+        return $ROOT_FOLDER. $DS."..".$DS . join($DS, $path_array);
+    }   
+    
 }
 
 ?>
