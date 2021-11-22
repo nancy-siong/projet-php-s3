@@ -147,31 +147,30 @@ class ModelGlasses
     }
 
 
-    public static function updateById($id, $data) {
+    public static function update($data){
         try {
-            if($data['newId'] == null){
-                $data['newId'] = $data['id'];
+            if($data['newglassesid'] == null){
+                $data['newglassesid'] = $data['glassesid'];
             }
-            if($data['newTitle'] == null){
-                $data['newTitle'] = $data['title'];
+            if($data['newtitle'] == null){
+                $data['newtitle'] = $data['title'];
             }
-            if($data['newDescription'] == null){
-                $data['newDescription'] = $data['description'];
+            if($data['newdescription'] == null){
+                $data['newdescription'] = $data['description'];
             }
-            if($data['newPrice'] == null){
-                $data['newPrice'] = $data['price'];
+            if($data['newprice'] == null){
+                $data['newprice'] = $data['price'];
             }
-
-            $sql = "UPDATE `g_glasses` SET `id` = :id, `title` = :title, `description` = :description, `price` = :price WHERE `g_glasses`.`id` = :id";
+            $sql = "UPDATE `g_glasses` SET `id` = :newglassesid, `title` = :newtitle, `description` = :newdescription, `price` = :newprice WHERE `g_glasses`.`id` = :glassesid";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
-                "id" => $data['id'],
-                "title" => $data['title'],
-                "description" => $data['description'],
-                "price" => $data['price']
+                "glassesid" => $data['glassesid'],
+                "newglassesid" => $data['newglassesid'],
+                "newtitle" => $data['newtitle'],
+                "newdescription" => $data['newdescription'],
+                "newprice" => $data['newprice']
             );
             $req_prep->execute($values);
-            
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage(); // affiche un message d'erreur
@@ -179,10 +178,10 @@ class ModelGlasses
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
             die();
-        
+        }
     }
 }
 
 
 
-}
+

@@ -53,6 +53,35 @@ class ControllerGlasses {
         require File::build_path(array('view', 'view.php'));
     }
 
+    public static function update(){
+        $id = $_GET['glassesid'];
+        $g = ModelGlasses::getGlassesById($id);
+        $controller='glasses';
+        $view='update';
+        $pagetitle='Maj dun article';
+        require File::build_path(array('view','view.php'));
+    }
+
+    public static function updated(){
+        $data = array(
+            "glassesid" => $_GET['glassesid'],
+            "title" => $_GET['title'],
+            "description" => $_GET['description'],
+            "price" => $_GET['price'],
+            "newglassesid" => $_GET['newglassesid'],
+            "newtitle" => $_GET['newtitle'],
+            "newdescription" => $_GET['newdescription'],
+            "newprice" => $_GET['newprice']
+        );
+        $id = $_GET['glassesid'];
+        ModelGlasses::update($data);
+        $controller='glasses';
+        $view='updated';
+        $pagetitle='Maj dun article';
+        require File::build_path(array('view','view.php'));
+
+    }
+
 }
 
 ?>

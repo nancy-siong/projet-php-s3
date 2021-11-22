@@ -10,6 +10,7 @@
             <ul>
                 <li><a href=" index.php?action=readAll&controller=utilisateur"> Accueil </a></li>
                 <li><a href="index.php?action=readAll"> Liste des lunettes </a></li>
+                <li><a href="index.php?action=create"> Créer un article </a></li>
             </ul>
         </nav>
         <?php

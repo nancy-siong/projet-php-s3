@@ -2,7 +2,7 @@
 
 <form method="get" action="">
 <fieldset>
-  <legend>Inscription</legend>
+  <legend>Création d'un article</legend>
   <p>
     <input type='hidden' name='action' value='created'>
   </p>
