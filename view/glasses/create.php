@@ -7,6 +7,9 @@
     <input type='hidden' name='action' value='created'>
   </p>
   <p>
+    <input type='hidden' name='controller' value='glasses'>
+  </p>
+  <p>
     <label for="glassesid">ID</label> :
     <input type="text" placeholder="S1" name="glassesid" id="glassesid" required/>
   </p>
