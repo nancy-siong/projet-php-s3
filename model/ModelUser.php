@@ -41,7 +41,7 @@ class ModelUser {
     public static function getAllUsers(){
 
         try {
-            $rep = Model::getPDO()->query("SELECT * FROM user");
+            $rep = Model::getPDO()->query("SELECT * FROM g_user");
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
             $tab_user = $rep->fetchAll();
             return $tab_user;
@@ -57,7 +57,7 @@ class ModelUser {
 
     public static function getUserByLogin($login){
         try {
-            $sql = "SELECT * FROM user WHERE login = :login";
+            $sql = "SELECT * FROM g_user WHERE login = :login";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "login" => $login,
@@ -78,12 +78,11 @@ class ModelUser {
             die();
         }
        
-
     }
 
     public function save(){
         try {
-            $sql = "INSERT INTO user (login,name,surname,password) VALUES (:login,:name,:surname,:password)";
+            $sql = "INSERT INTO g_user (login,name,surname,password) VALUES (:login,:name,:surname,:password)";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "login" => $this -> getLogin(),
@@ -116,7 +115,7 @@ class ModelUser {
             if($data['newpassword'] == null){
                 $data['newpassword'] = $data['password'];
             }
-            $sql = "UPDATE `user` SET `login` = :newlogin, `name` = :newname, `surname`= :newsurname, `password` = :newpassword WHERE `user`.`login` = :login";
+            $sql = "UPDATE `g_user` SET `login` = :newlogin, `name` = :newname, `surname`= :newsurname, `password` = :newpassword WHERE `user`.`login` = :login";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "login" => $data['login'],
@@ -138,7 +137,7 @@ class ModelUser {
 
     public static function deleteByLogin($login){
         try {
-            $sql = "DELETE FROM user
+            $sql = "DELETE FROM g_user
                     WHERE login = :login";
              $req_prep = Model::getPDO()->prepare($sql);
              $values = array(
