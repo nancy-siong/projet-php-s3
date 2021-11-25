@@ -72,7 +72,7 @@ Class ControllerUser {
     
     public static function create() {
         $controller='user';
-        $view='create';
+        $view='update';
         $pagetitle='Inscription';
         require File::build_path(array('view','view.php'));
     }

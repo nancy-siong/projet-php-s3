@@ -24,17 +24,22 @@
       <label for="surname_id">Nom</label> : 
       <input type="text" placeholder="nouveau nom" name="newsurname" id="newsurname_id" />
     </p>
+
     <p>
-      <input type="hidden" name="login" id="login_id" value=' . rawurlencode($u->getLogin()) . ' . />
+      <input type="hidden" name="login" id="login_id" value=' . 
+      (isset($u) ? rawurlencode($u->getLogin()) : "") . ' . />
     </p>
     <p>
-      <input type="hidden" name="name" id="name_id" value=' . rawurlencode($u->getName()) . ' . />
+      <input type="hidden" name="name" id="name_id" value=' .
+      (isset($u) ? rawurlencode($u->getName()) : "") . ' . />
     </p>
     <p>
-      <input type="hidden" name="surname" id="surname_id" value=' . rawurlencode($u->getSurname()) . ' . />
+      <input type="hidden" name="surname" id="surname_id" value=' .
+      (isset($u) ? rawurlencode($u->getSurname()) : "") . ' . />
     </p>
     <p>
-      <input type="hidden" name="password" id="password_id" value=' . rawurlencode($u->getPassword()) . ' . />
+      <input type="hidden" name="password" id="password_id" value=' . 
+      (isset($u) ? rawurlencode($u->getPassword()) : "") . ' . />
     </p>'
     ?>
     <p>
