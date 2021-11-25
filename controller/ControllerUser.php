@@ -103,4 +103,12 @@ Class ControllerUser {
         require File::build_path(array('view', 'view.php')); 
     }
 
+    public static function removeAdmin() {
+        $login = $_GET['login'];
+        ModelUser::removeAdmin($login);
+        $controller = 'user';
+        $view = 'removeAdminDone';
+        $pagetitle = 'Cet utilisateur n\'est plus administrateur';
+        require File::build_path(array('view', 'view.php')); 
+    }
 }

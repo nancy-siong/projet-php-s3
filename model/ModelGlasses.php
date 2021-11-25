@@ -20,7 +20,10 @@ class ModelGlasses
             $this->price = $price;
         }
     }
-
+    
+    public static function truc(){
+        return 129;
+    }
 
     // id      
 

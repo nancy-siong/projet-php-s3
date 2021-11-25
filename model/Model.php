@@ -7,6 +7,7 @@ class Model
     private static $pdo = NULL;
 
 
+
     private static function init()
     {
         $hostname = Conf::getHostname();

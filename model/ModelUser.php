@@ -47,7 +47,7 @@ class ModelUser {
             return $tab_user;
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage(); 
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
@@ -71,7 +71,7 @@ class ModelUser {
             return $tab_user[0];
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
@@ -93,7 +93,7 @@ class ModelUser {
             $req_prep->execute($values);
         } catch(PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
@@ -127,7 +127,7 @@ class ModelUser {
             $req_prep->execute($values);
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
@@ -146,7 +146,7 @@ class ModelUser {
             $req_prep->execute($values);
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage(); 
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
@@ -164,7 +164,25 @@ class ModelUser {
             $req_prep->execute($values);
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function removeAdmin($login) {
+        try {
+            $sql = "UPDATE `g_user` SET `isAdmin` = '0' WHERE `g_user`.`login` = :login";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "login" => $login
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
