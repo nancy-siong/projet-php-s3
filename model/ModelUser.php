@@ -139,9 +139,27 @@ class ModelUser {
         try {
             $sql = "DELETE FROM g_user
                     WHERE login = :login";
-             $req_prep = Model::getPDO()->prepare($sql);
-             $values = array(
-            "login" => $login
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "login" => $login
+            );
+            $req_prep->execute($values);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
+
+    public static function setAdmin($login) {
+        try {
+            $sql = "UPDATE `g_user` SET `isAdmin` = '1' WHERE `g_user`.`login` = :login";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $values = array(
+                "login" => $login
             );
             $req_prep->execute($values);
         } catch (PDOException $e) {
@@ -154,7 +172,6 @@ class ModelUser {
         }
     }
         
-
     public function __construct($l=NULL,$p=NULL,$n=NULL,$s=NULL){
         if(!is_null($l) && !is_null($p) && !is_null($n) && !is_null($s)){
             $this->login = $l;
@@ -163,6 +180,8 @@ class ModelUser {
             $this->password = $p;
         }
     }
+
+
 
 }
 

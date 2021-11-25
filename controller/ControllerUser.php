@@ -94,4 +94,13 @@ Class ControllerUser {
         require File::build_path(array('view', 'view.php')); 
     }
 
+    public static function setAdmin() {
+        $login = $_GET['login'];
+        ModelUser::setAdmin($login);
+        $controller = 'user';
+        $view = 'setAdminDone';
+        $pagetitle = 'Administrateur créé';
+        require File::build_path(array('view', 'view.php')); 
+    }
+
 }
