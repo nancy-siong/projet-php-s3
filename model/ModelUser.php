@@ -5,6 +5,7 @@ class ModelUser {
     private $name;
     private $surname;
     private $password;
+    private $isAdmin;
 
     public function getLogin() {
         return $this->login;
@@ -20,6 +21,10 @@ class ModelUser {
 
     public function getPassword(){
         return $this->password;
+    }
+
+    public function getIsAdmin(){
+        return $this->isAdmin;
     }
 
     public function setLogin($l) {
@@ -162,6 +167,7 @@ class ModelUser {
                 "login" => $login
             );
             $req_prep->execute($values);
+            $isAdmin = true;
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
@@ -180,6 +186,7 @@ class ModelUser {
                 "login" => $login
             );
             $req_prep->execute($values);
+            $isAdmin = false;
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
