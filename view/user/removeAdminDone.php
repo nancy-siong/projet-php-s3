@@ -1,1 +1,1 @@
-<p> L'utilisateur n'est plus administrateur </p>
+<?php echo "L'utilisateur n'est plus administrateur" ?>

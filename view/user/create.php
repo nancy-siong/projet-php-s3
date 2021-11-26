@@ -1,5 +1,4 @@
-
-    <form method="get" action="">
+<form method="get" action="">
   <fieldset>
     <legend>Inscription</legend>
     <p>
@@ -14,11 +13,11 @@
     </p>
     <p>
       <label for="name_id">Prénom</label> :
-      <input type="text" placeholde"Prénom" name="name" id="name_id" required/>
+      <input type="text" placeholder="Prénom" name="name" id="name_id" required/>
     </p>
     <p>
       <label for="surname_id">Nom</label> :
-      <input type="text" placeholder"Nom" name="surname" id="surname_id" required/>
+      <input type="text" placeholder="Nom" name="surname" id="surname_id" required/>
     </p>
     <p>
       <label for="password_id">Mot de passe</label> :

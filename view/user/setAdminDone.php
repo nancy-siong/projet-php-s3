@@ -1,1 +1,1 @@
-<p> Nouvel administrateur créé ! </p>
+<?php echo "Nouvel administrateur créé !" ?>
