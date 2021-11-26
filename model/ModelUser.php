@@ -120,7 +120,7 @@ class ModelUser {
             if($data['newpassword'] == null){
                 $data['newpassword'] = $data['password'];
             }
-            $sql = "UPDATE `g_user` SET `login` = :newlogin, `name` = :newname, `surname`= :newsurname, `password` = :newpassword WHERE `user`.`login` = :login";
+            $sql = "UPDATE `g_user` SET `login` = :newlogin, `name` = :newname, `surname`= :newsurname, `password` = :newpassword WHERE `login` = :login";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "login" => $data['login'],
@@ -195,6 +195,14 @@ class ModelUser {
             }
             die();
         }
+    }
+
+    public static function connect() {
+        
+    }
+
+    public static function passwordMatched($data) {
+        return $data['newpassword'] == $data['confirmedpassword'];
     }
         
     public function __construct($l=NULL,$p=NULL,$n=NULL,$s=NULL){

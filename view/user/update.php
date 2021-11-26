@@ -1,15 +1,14 @@
 <form method="get" action="">
 
   <fieldset>
-  
-    <legend>MAJ des informations</legend>
-    <p><input type='hidden' name='action' value='updated'></p>
+
+    <legend><?= $pagetitle ?></legend>
+    <p><input type='hidden' name='action' value=<?= (isset($u) ? "updated" : "created") ?>></p>
     <p><input type='hidden' name='controller' value='user'></p>
 
-    <?php
 
-      echo
-      '<p>
+
+      <p>
       <label for="login_id">Login</label> :
       <input type="text" placeholder="exemple@gmail.com" name="newlogin" id="newlogin_id"/>
       </p> 
@@ -26,33 +25,31 @@
         <input type="text" placeholder="Nouveau mot de passe" name="newpassword" id="newpassword_id" />
       </p>
       <p>
-        <label for="password_id">Ressaisissez le mot passe</label> : 
-        <input type="text" placeholder="Nouveau mot de passe" name="confirm_password" id="confirm_password_id"/>
+        <label for="password_id">Confirmer le mot passe</label> : 
+        <input type="text" placeholder="Nouveau mot de passe" name="confirmed_password" id="confirmed_password_id"/>
       </p>
 
 
       <p>
         <input type="hidden" name="login" id="login_id" 
-        value=' . (isset($u) ? rawurlencode($u->getLogin()) : "") . ' . />
+        value='<?= (isset($u) ? rawurlencode($u->getLogin()) : "") ?> ' . />
       </p>
       <p>
         <input type="hidden" name="name" id="name_id" 
-        value=' . (isset($u) ? rawurlencode($u->getName()) : "") . ' . />
+        value='<?= (isset($u) ? rawurlencode($u->getName()) : "") ?> ' . />
       </p>
       <p>
         <input type="hidden" name="surname" id="surname_id" 
-        value=' . (isset($u) ? rawurlencode($u->getSurname()) : "") . ' . />
+        value='<?= (isset($u) ? rawurlencode($u->getSurname()) : "") ?> ' . />
       </p>
       <p>
         <input type="hidden" name="password" id="password_id" 
-        value=' . (isset($u) ? rawurlencode($u->getPassword()) : "") . ' . />
+        value='<?= (isset($u) ? rawurlencode($u->getPassword()) : "") ?> ' . />
       </p>
       <p>
         <input type="hidden" name="password" id="password_id" 
-        value=' . (isset($u) ? rawurlencode($u->getPassword()) : "") . ' . />
+        value='<?= (isset($u) ? rawurlencode($u->getPassword()) : "") ?> ' . />
       </p>
-      '
-      ?>
 
     <p><input type="submit" value="Envoyer" /></p>
 

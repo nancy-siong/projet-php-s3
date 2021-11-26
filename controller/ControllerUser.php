@@ -35,7 +35,7 @@ Class ControllerUser {
         $u = ModelUser::getUserByLogin($login);
         $controller='user';
         $view='update';
-        $pagetitle='L\'utilisateur a bien été mis à jour !';
+        $pagetitle="Mise à jour";
         require File::build_path(array('view','view.php'));
     }
 
@@ -78,13 +78,27 @@ Class ControllerUser {
     }
 
     public static function created() {
-        $u = new ModelUser($_GET['login'], $_GET['password'], $_GET['name'], $_GET['surname']);
-        $u -> save();
-        $tab_u = ModelUser::getAllUsers();
-        $controller='user';
-        $view='created';
-        $pagetitle='Utilisateur créé';
-        require File::build_path(array('view', 'view.php'));
+        $data = array (
+            "newpassword" => $_GET['newpassword'],
+            "confirmedpassword" => $_GET['confirmed_password']
+        );
+        if (ModelUser::passwordMatched($data)) {
+            $u = new ModelUser($_GET['login'], $_GET['password'], $_GET['name'], $_GET['surname']);
+            die(var_dump($u));
+            $u -> save();
+            $tab_u = ModelUser::getAllUsers();
+            $controller='user';
+            $view='created';
+            $pagetitle='Utilisateur créé';
+            require File::build_path(array('view', 'view.php'));
+        } else {
+            $tab_u = ModelUser::getAllUsers();
+            $controller='user';
+            $view='errorPasswordConfirmation';
+            $pagetitle='Erreur';
+            require File::build_path(array('view', 'view.php'));
+        }
+        
     }
 
     public static function connect() {

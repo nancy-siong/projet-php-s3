@@ -27,7 +27,6 @@ class ControllerGlasses {
     }
 
     public static function create(){
-        
         $controller='glasses';
         $view='create';
         $pagetitle='Inscription';
@@ -37,6 +36,7 @@ class ControllerGlasses {
     public static function created(){
         $g = new ModelGlasses($_GET['glassesid'], $_GET['title'], $_GET['description'], $_GET['price']);
         $g -> save();
+        
         $tab_g = ModelGlasses::getAllGlasses();
         $controller='glasses';
         $view='created';
@@ -79,8 +79,8 @@ class ControllerGlasses {
         $view='updated';
         $pagetitle='Maj dun article';
         require File::build_path(array('view','view.php'));
-
     }
+
 
 }
 
