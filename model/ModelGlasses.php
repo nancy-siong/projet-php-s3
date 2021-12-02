@@ -21,9 +21,6 @@ class ModelGlasses
         }
     }
     
-    public static function truc(){
-        return 129;
-    }
 
     // id      
 

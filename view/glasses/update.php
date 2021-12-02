@@ -4,6 +4,9 @@
     <p>
       <input type='hidden' name='action' value='updated'>
     </p>
+    <p>
+      <input type='hidden' name='controller' value='glasses'>
+    </p>
     <?php
     echo'<p>
     <label for="newglassesid_id">Id</label> :

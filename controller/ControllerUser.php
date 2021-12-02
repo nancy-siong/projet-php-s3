@@ -103,9 +103,24 @@ Class ControllerUser {
 
     public static function connect() {
         $controller = 'user';
-        $view='create';
+        $view='connect';
         $pagetitle='Connexion';
         require File::build_path(array('view', 'view.php')); 
+    }
+
+    public static function connected() {
+        $data = (
+            "login" => $_GET['login'],
+            "password" => $_GET['password']
+        );
+        if(ModelUser::connected($data) = null){
+            //erreur de connection
+        }else{
+            
+        }
+        $controller = 'user';
+        $view='connected';
+        $pagetitle='Connecté';
     }
 
     public static function setAdmin() {

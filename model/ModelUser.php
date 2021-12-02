@@ -197,12 +197,19 @@ class ModelUser {
         }
     }
 
-    public static function connect() {
-        
-    }
-
     public static function passwordMatched($data) {
         return $data['newpassword'] == $data['confirmedpassword'];
+    }
+    public static function connect($data) {
+        $sql = "SELECT * FROM g_user WHERE g_user.login = :login AND g_user.password = :password";
+        $req_prep = Model::getPDO()->prepare($sql);
+        $values = array(
+            "login" => $data['login'],
+            "password" => $data['password']
+        );
+        $req_prep->execute($values);
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+        return $req_prep->fetch();
     }
         
     public function __construct($l=NULL,$p=NULL,$n=NULL,$s=NULL){
