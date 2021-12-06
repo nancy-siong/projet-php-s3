@@ -109,18 +109,24 @@ Class ControllerUser {
     }
 
     public static function connected() {
-        $data = (
+        $data = array(
             "login" => $_GET['login'],
             "password" => $_GET['password']
         );
-        if(ModelUser::connected($data) = null){
-            //erreur de connection
+        $u = ModelUser::connect($data);
+        if($u == false){
+            $controller = 'user';
+            $view='errorConnect';
+            $pagetitle='Erreur!';
+            require File::build_path(array('view','view.php'));
         }else{
-            
+            $_SESSION[$u->getName()] = $u;
+            $controller = 'user';
+            $view='connected';
+            $pagetitle='Connecté';
+            require File::build_path(array('view', 'view.php'));
         }
-        $controller = 'user';
-        $view='connected';
-        $pagetitle='Connecté';
+        
     }
 
     public static function setAdmin() {

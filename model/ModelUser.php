@@ -200,8 +200,10 @@ class ModelUser {
     public static function passwordMatched($data) {
         return $data['newpassword'] == $data['confirmedpassword'];
     }
+    
     public static function connect($data) {
-        $sql = "SELECT * FROM g_user WHERE g_user.login = :login AND g_user.password = :password";
+        try {
+            $sql = "SELECT * FROM g_user WHERE g_user.login = :login AND g_user.password = :password";
         $req_prep = Model::getPDO()->prepare($sql);
         $values = array(
             "login" => $data['login'],
@@ -210,6 +212,15 @@ class ModelUser {
         $req_prep->execute($values);
         $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
         return $req_prep->fetch();
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+        
     }
         
     public function __construct($l=NULL,$p=NULL,$n=NULL,$s=NULL){
