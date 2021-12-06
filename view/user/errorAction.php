@@ -1,1 +1,1 @@
-<?php echo "Erreur! La méthode appelée n'existe pas!"?>
+<p>Erreur ! La méthode appelée n'existe pas !</p>

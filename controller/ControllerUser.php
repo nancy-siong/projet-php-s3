@@ -45,7 +45,6 @@ Class ControllerUser {
             "name" => $_GET['name'],
             "surname" => $_GET['surname'],
             "password" => $_GET['password'],
-            "newlogin" => $_GET['newlogin'],
             "newname" => $_GET['newname'],
             "newsurname" => $_GET['newsurname'],
             "newpassword" => $_GET['newpassword']

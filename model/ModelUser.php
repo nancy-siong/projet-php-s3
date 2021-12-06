@@ -108,9 +108,7 @@ class ModelUser {
 
     public static function update($data){
         try {
-            if($data['newlogin'] == null){
-                $data['newlogin'] = $data['login'];
-            }
+           
             if($data['newname'] == null){
                 $data['newname'] = $data['name'];
             }
@@ -120,11 +118,10 @@ class ModelUser {
             if($data['newpassword'] == null){
                 $data['newpassword'] = $data['password'];
             }
-            $sql = "UPDATE `g_user` SET `login` = :newlogin, `name` = :newname, `surname`= :newsurname, `password` = :newpassword WHERE `login` = :login";
+            $sql = "UPDATE `g_user` SET `name` = :newname, `surname`= :newsurname, `password` = :newpassword WHERE `login` = :login";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "login" => $data['login'],
-                "newlogin" => $data['newlogin'],
                 "newname" => $data['newname'],
                 "newsurname" => $data['newsurname'],
                 "newpassword" => $data['newpassword']

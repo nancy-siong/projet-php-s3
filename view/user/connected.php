@@ -1,2 +1,1 @@
-<?php
-echo "Vous êtes connecté(e)!";
+<p>Vous êtes connecté(e)!</p>
