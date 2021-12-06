@@ -1,1 +1,1 @@
-<?php echo "Erreur! Cet utilisateur n'existe pas!"?>
+<p>Erreur ! Cet utilisateur n'existe pas !</p>
