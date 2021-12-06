@@ -7,7 +7,10 @@
     <p>
       <input type='hidden' name='action' value='updated'>
     </p>
-
+    <p>
+      <input type='hidden' name='controller' value='glasses'>
+    </p>
+    
     <p>
     <label for="newglassesid_id">Id</label> :
     <input type="text" placeholder="nouvel ID" name="newglassesid" id="newglassesid_id"/>
