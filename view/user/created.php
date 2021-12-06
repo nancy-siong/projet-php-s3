@@ -1,6 +1,4 @@
-<?php
-echo "Vous êtes désormais inscrit !";
-require File::build_path(array("view", "user", "list.php"));
-?>
+<p>Vous êtes désormais inscrit !</p>
+<?php require File::build_path(array("view", "user", "list.php")); ?>
 
 
