@@ -1,8 +1,1 @@
-<!DOCTYPE html>
-    <html>
-        <body>
-            <?php
-            echo 'Une erreur est survenue, veuillez réessayer.'
-            ?>
-        </body>
-</html>
+<p>Une erreur est survenue, veuillez réessayer</p>

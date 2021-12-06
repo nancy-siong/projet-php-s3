@@ -1,6 +1,3 @@
-<?php
+<p>L'article a bien été créé.</p>
 
-echo "<p>L'article a bien été crée.</p>";
-require_once File::build_path(array('view', 'glasses', 'list.php'));
-
-?>
+<?php require_once File::build_path(array('view', 'glasses', 'list.php')); ?>
