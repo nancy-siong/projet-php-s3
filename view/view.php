@@ -8,7 +8,7 @@
     <body>
         <nav>
             <ul>
-                <li><a href=" index.php?action=readAll&controller=user"> Liste des clients </a></li>
+                <li><a href="index.php?action=readAll&controller=user"> Liste des clients </a></li>
                 <li><a href="index.php?action=readAll&controller=glasses"> Liste des lunettes </a></li>
                 <li><a href="index.php?action=create&controller=glasses"> Créer un article </a></li>
                 <li><a href="index.php?action=create&controller=user"> S'inscrire </a></li>
