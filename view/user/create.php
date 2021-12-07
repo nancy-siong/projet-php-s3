@@ -29,7 +29,7 @@
 
     <p>
       <label for="password_id">Mot de passe :</label>
-      <input type="text" placeholder="johndeuf123" name="password" id="password_id" required/>
+      <input type="password" placeholder="johndeuf123" name="password" id="password_id" required/>
     </p>
 
     <p>
