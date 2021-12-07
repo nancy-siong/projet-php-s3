@@ -3,6 +3,8 @@ require_once File::build_path(array('model','ModelUser.php'));
 
 Class ControllerUser {
 
+    protected static $object = 'user';
+
     public static function errorAction() {
         $controller='user';
         $view='errorAction';
@@ -10,23 +12,23 @@ Class ControllerUser {
         require File::build_path(array('view','view.php'));
     }
 
-    public static function readAll(){
-        $tab_u = ModelUser::getAllUsers();
-        $controller = 'user';
+    public static function readAll() {
+        $tab_u = ModelUser::selectAll(); 
+
         $view = 'list';
         $pagetitle = 'Liste des utilisateurs';
         require File::build_path(array('view','view.php'));
     }
 
     public static function read(){
-        if (ModelUser::getUserByLogin($_GET['login']) == false){
+        if (ModelUser::select($_GET['login']) == false){
             require File::build_path(array('view','user','error.php'));
             return false;
         }
-        $u = ModelUser::getUserByLogin($_GET['login']);
+        $u = ModelUser::select($_GET['login']);
         $controller='user';
         $view='detail';
-        $pagetitle='Informations de lutilisateur';
+        $pagetitle='Informations de l\'utilisateur';
         require File::build_path(array('view','view.php'));
     }
 
@@ -59,8 +61,8 @@ Class ControllerUser {
 
     public static function delete(){
         $login = $_GET['login'];
-        ModelUser::deleteByLogin($login);
-        $tab_u = ModelUser::getAllUsers();
+        ModelUser::delete($login);
+        $tab_u = ModelUser::selectAll();
         $controller='user';
         $view='deleted';
         $pagetitle='Suppression utilisateur';

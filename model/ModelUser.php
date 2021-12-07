@@ -1,11 +1,15 @@
 <?php
 require_once File::build_path(array('model','Model.php'));
-class ModelUser {
+
+class ModelUser extends Model{
     private $login;
     private $name;
     private $surname;
     private $password;
     private $isAdmin;
+
+    protected static $object = 'g_user';
+    protected static $primary = 'login';
 
     public function getLogin() {
         return $this->login;
@@ -41,48 +45,6 @@ class ModelUser {
 
     public function setPassword($p) {
         return $this->password = $p;
-    }
-
-    public static function getAllUsers(){
-
-        try {
-            $rep = Model::getPDO()->query("SELECT * FROM g_user");
-            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_user = $rep->fetchAll();
-            return $tab_user;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); 
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
-    }
-
-    public static function getUserByLogin($login){
-        try {
-            $sql = "SELECT * FROM g_user WHERE login = :login";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "login" => $login,
-            );
-            $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_user = $req_prep->fetchAll();
-            if (empty($tab_user)){
-                return false;
-            }
-            return $tab_user[0];
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
-       
     }
 
     public function save(){
@@ -130,25 +92,6 @@ class ModelUser {
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
-    }
-
-    public static function deleteByLogin($login){
-        try {
-            $sql = "DELETE FROM g_user
-                    WHERE login = :login";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "login" => $login
-            );
-            $req_prep->execute($values);
-        } catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); 
             } else {
                 echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
