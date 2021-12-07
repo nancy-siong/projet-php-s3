@@ -3,6 +3,8 @@ require_once File::build_path(array('model','ModelUser.php'));
 
 Class ControllerUser {
 
+    protected static $object = 'user';
+
     public static function errorAction() {
         $controller='user';
         $view='errorAction';
@@ -10,9 +12,10 @@ Class ControllerUser {
         require File::build_path(array('view','view.php'));
     }
 
-    public static function readAll(){
-        $tab_u = ModelUser::getAllUsers();
+    public static function readAll() {
         $controller = 'user';
+        $tab_u = ModelUser::getAllUser(); 
+
         $view = 'list';
         $pagetitle = 'Liste des utilisateurs';
         require File::build_path(array('view','view.php'));

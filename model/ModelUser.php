@@ -7,6 +7,7 @@ class ModelUser {
     private $password;
     private $isAdmin;
 
+    protected static $object = 'g_user';
     protected static $primary = 'login';
 
     public function getLogin() {

@@ -47,13 +47,41 @@ class Model
                 echo $e->getMessage();
             } else {
                 echo 'Impossible de récupérer les données de la table $table_name';
+                echo '<a href=""> retour a la page d\'accueil </a>';
             }
             die();
         }
     }
 
     public static function select($primary_value) {
-        
+        $table_name = static::$object;
+        $class_name = 'Model' . ucfirst(str_replace('g_','',$table_name));
+        $primary_key = static::$primary;
+
+        try {
+            $sql = "SELECT * FROM $table_name WHERE $primary_key = :primary_value";
+            $req_prep = self::getPDO()->prepare($sql);
+
+            $values = array(
+                "primary_value" => $primary_value,
+            );
+            $req_prep->execute($values);
+            $req_prep->setFecthMode(PDO::FETCH_CLASS, $class_name);
+            $tab_selected = $req_prep->fetchAll();
+            
+            if(empty($tab_selected)) {
+                return false;
+            }
+            return $tab_selected[0]; 
+        } catch (PDOExceptions $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Impossible de récupérer $primary_value de la table $class_name";
+                echo '<a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
     }
 }
 
