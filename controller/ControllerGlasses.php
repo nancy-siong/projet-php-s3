@@ -15,11 +15,11 @@ class ControllerGlasses {
     }
 
     public static function read(){
-        if (ModelGlasses::getGlassesById($_GET['glassesid']) == false){
+        if (ModelGlasses::select($_GET['glassesid']) == false){
             require File::build_path(array('view','glasses','error.php'));
             return false;
         }
-        $g = ModelGlasses::getGlassesById($_GET['glassesid']);
+        $g = ModelGlasses::select($_GET['glassesid']);
         $controller='glasses';
         $view='detail';
         $pagetitle='Informations de la paire de lunettes';

@@ -47,47 +47,30 @@ class ModelUser extends Model{
         return $this->password = $p;
     }
 
-    public static function getAllUsers(){
-
-        try {
-            $rep = Model::getPDO()->query("SELECT * FROM g_user");
-            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_user = $rep->fetchAll();
-            return $tab_user;
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); 
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
-    }
-
-    public static function getUserByLogin($login){
-        try {
-            $sql = "SELECT * FROM g_user WHERE login = :login";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "login" => $login,
-            );
-            $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
-            $tab_user = $req_prep->fetchAll();
-            if (empty($tab_user)){
-                return false;
-            }
-            return $tab_user[0];
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
+    // public static function getUserByLogin($login){
+    //     try {
+    //         $sql = "SELECT * FROM g_user WHERE login = :login";
+    //         $req_prep = Model::getPDO()->prepare($sql);
+    //         $values = array(
+    //             "login" => $login,
+    //         );
+    //         $req_prep->execute($values);
+    //         $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUser');
+    //         $tab_user = $req_prep->fetchAll();
+    //         if (empty($tab_user)){
+    //             return false;
+    //         }
+    //         return $tab_user[0];
+    //     } catch(PDOException $e) {
+    //         if (Conf::getDebug()) {
+    //             echo $e->getMessage();
+    //         } else {
+    //             echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+    //         }
+    //         die();
+    //     }
        
-    }
+    // }
 
     public function save(){
         try {

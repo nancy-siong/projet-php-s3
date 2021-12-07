@@ -21,14 +21,14 @@ Class ControllerUser {
     }
 
     public static function read(){
-        if (ModelUser::getUserByLogin($_GET['login']) == false){
+        if (ModelUser::select($_GET['login']) == false){
             require File::build_path(array('view','user','error.php'));
             return false;
         }
-        $u = ModelUser::getUserByLogin($_GET['login']);
+        $u = ModelUser::select($_GET['login']);
         $controller='user';
         $view='detail';
-        $pagetitle='Informations de lutilisateur';
+        $pagetitle='Informations de l\'utilisateur';
         require File::build_path(array('view','view.php'));
     }
 

@@ -59,20 +59,20 @@ class Model
         $primary_key = static::$primary;
 
         try {
-            $sql = "SELECT * FROM $table_name WHERE $primary_key = :primary_value";
+            $sql = "SELECT * from $table_name WHERE $primary_key= :primary_value";
             $req_prep = self::getPDO()->prepare($sql);
 
             $values = array(
                 "primary_value" => $primary_value,
             );
             $req_prep->execute($values);
-            $req_prep->setFecthMode(PDO::FETCH_CLASS, $class_name);
+
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
             $tab_selected = $req_prep->fetchAll();
-            
-            if(empty($tab_selected)) {
+
+            if (empty($tab_selected))
                 return false;
-            }
-            return $tab_selected[0]; 
+            return $tab_selected[0];
         } catch (PDOExceptions $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
