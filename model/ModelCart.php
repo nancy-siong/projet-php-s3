@@ -44,7 +44,7 @@ class ModelCart {
                 );
                 $req_prep->execute($values);
             } else {
-                $sql = "INSERT INTO `g_cart`(login_user, id_glasses, quantity) VALUES (:login_user, :id_glasses, '1');";
+                $sql = "INSERT INTO g_cart(login_user, id_glasses, quantity) VALUES (:login_user, :id_glasses, '1')";
                 $req_prep = Model::getPDO()->prepare($sql);
 
                 $values = array(

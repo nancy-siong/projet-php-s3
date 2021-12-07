@@ -18,12 +18,13 @@ class ControllerCart
 
     public static function addToCart() {
         $controller = 'cart';
-        ModelCart::addToCart($_SESSION['user']->getLogin(), $_GET('id_glasses'));
+        ModelCart::addToCart($_SESSION['user']->getLogin(), $_GET('glassesid'));
         
-        $view = 'cart';
+        $view = 'productAdded';
         $pagetitle = 'Votre panier';
         require File::build_path(array("view", "view.php"));
     }
+
     public static function read()
     {
         $immatriculation = $_GET['immat'];

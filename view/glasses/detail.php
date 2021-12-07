@@ -5,3 +5,4 @@
 
 <p> <a href="?action=update&controller=glasses&glassesid=<?= rawurlencode($g->getId()) ?>">Modifier cet article</a></p>
 <p> <a href="?action=delete&controller=glasses&glassesid=<?= rawurlencode($g->getId()) ?>">Supprimer cet article</a></p>
+<p> <a href="?action=addToCart&controller=cart&glassesid=<?= rawurlencode($g->getId()) ?>">Ajouter Au Panier</a></p>
