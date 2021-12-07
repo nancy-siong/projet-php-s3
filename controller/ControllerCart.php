@@ -18,6 +18,13 @@ class ControllerCart
     }
 
     public static function addToCart() {
+        if(!isset($_SESSION['user'])){
+            $controller = 'user';
+            $view = 'connect';
+            $pagetitle = 'Connexion';
+            require File::build_path(array('view','view.php'));
+            die;
+        }
         $controller = 'cart';
         $u = $_SESSION['user']->getLogin();
         $g = $_GET['glassesid'];
