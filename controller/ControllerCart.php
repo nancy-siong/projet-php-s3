@@ -30,10 +30,10 @@ class ControllerCart
 
     public static function read()
     {
-        $immatriculation = $_GET['immat'];
+        $view = 'cart';
         $pagetitle = "Votre panier";
 
-        $v = ModelVoiture::select($immatriculation);
+        $v = ModelCart::select($immatriculation);
 
         if ($v) {
             $view = 'detail';

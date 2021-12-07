@@ -4,14 +4,14 @@ require_once File::build_path(array('model','ModelGlasses.php'));
 
 class ControllerGlasses {
 
+    protected static $object = 'glasses';
+
     public static function readAll()
     {
-        $controller = 'glasses';
         $view = 'list';
         $pagetitle = 'Liste des Lunettes';
-        $tab_g = ModelGlasses::getAllGlasses();  
+        $tab_g = ModelGlasses::selectAll();
         require File::build_path(array('view','view.php'));
-
     }
 
     public static function read(){

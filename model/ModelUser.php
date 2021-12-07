@@ -7,6 +7,8 @@ class ModelUser {
     private $password;
     private $isAdmin;
 
+    protected static $primary = 'login';
+
     public function getLogin() {
         return $this->login;
     }

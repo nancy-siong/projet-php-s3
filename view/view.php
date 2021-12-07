@@ -13,10 +13,11 @@
                 <li><a href="index.php?action=create&controller=glasses"> Créer un article </a></li>
                 <li><a href="index.php?action=create&controller=user"> S'inscrire </a></li>
                 <li><a href="index.php?action=connect&controller=user"> Se connecter </a></li>
+                <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
             </ul>
         </nav>
         <?php
-            $filepath = File::build_path(array("view", $controller, "$view.php"));
+            $filepath = File::build_path(array("view", static::$object, "$view.php"));
             require $filepath;
         ?>
 

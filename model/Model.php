@@ -5,8 +5,8 @@ require_once File::build_path(array('config', 'Conf.php'));
 class Model
 {
     private static $pdo = NULL;
-
-
+    protected static $object;
+    protected static $primary;
 
     private static function init()
     {
@@ -33,6 +33,28 @@ class Model
             self::init();
         }
         return self::$pdo;
+    }
+
+    public static function selectAll() {
+        $table_name = static::$object;
+        $class_name = 'Model' . ucfirst($table_name);
+
+        try {
+            $sql = "SELECT * FROM $table_name";
+            $rep = self::getPDO()->query($sql);
+            $rep = setFetchMode(PDO::FETCH_CLASS, $class_name);
+        } catch(PDOException $e) {
+            if(Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo 'Impossible de récupérer les données de la table $table_name';
+            }
+            die();
+        }
+    }
+
+    public static function select($primary_value) {
+        
     }
 }
 
