@@ -13,8 +13,7 @@ Class ControllerUser {
     }
 
     public static function readAll() {
-        $controller = 'user';
-        $tab_u = ModelUser::getAllUser(); 
+        $tab_u = ModelUser::selectAll(); 
 
         $view = 'list';
         $pagetitle = 'Liste des utilisateurs';

@@ -42,12 +42,12 @@ class Model
         try {
             $rep = self::getPDO()->query("SELECT * FROM $table_name");
             $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
-        } catch(PDOException $e) {
-            if(Conf::getDebug()) {
+            return $rep->fetchAll();
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
                 echo $e->getMessage();
             } else {
-                echo 'Impossible de récupérer les données de la table $table_name';
-                echo '<a href=""> retour a la page d\'accueil </a>';
+                echo "Impossible de récupérer la table $table_name";
             }
             die();
         }
