@@ -2,13 +2,13 @@
 
 require_once File::build_path(array('model', 'Model.php'));
 
-class ModelGlasses {
+class ModelGlasses extends Model {
     private $id;
     private $title;
     private $description;
     private $price;
 
-    protected static $object = 'glasses';
+    protected static $object = 'g_glasses';
     protected static $primary = 'id';
 
     public function __construct($id = NULL, $title = NULL, $description = NULL, $price = NULL)

@@ -37,12 +37,11 @@ class Model
 
     public static function selectAll() {
         $table_name = static::$object;
-        $class_name = 'Model' . ucfirst($table_name);
+        $class_name = 'Model' . ucfirst(str_replace('g_','',$table_name));
 
         try {
-            $sql = "SELECT * FROM $table_name";
-            $rep = self::getPDO()->query($sql);
-            $rep = setFetchMode(PDO::FETCH_CLASS, $class_name);
+            $rep = self::getPDO()->query("SELECT * FROM $table_name");
+            $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
         } catch(PDOException $e) {
             if(Conf::getDebug()) {
                 echo $e->getMessage();

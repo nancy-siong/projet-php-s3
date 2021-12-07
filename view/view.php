@@ -16,6 +16,7 @@
                 <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
             </ul>
         </nav>
+        
         <?php
             $filepath = File::build_path(array("view", static::$object, "$view.php"));
             require $filepath;
