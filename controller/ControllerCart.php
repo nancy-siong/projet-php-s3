@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array("model", "ModelCart.php"));
+require_once File::build_path(array('model','ModelUser.php'));
 
 class ControllerCart
 {
@@ -18,7 +19,9 @@ class ControllerCart
 
     public static function addToCart() {
         $controller = 'cart';
-        ModelCart::addToCart($_SESSION['user']->getLogin(), $_GET('glassesid'));
+        $u = $_SESSION['user']->getLogin();
+        $g = $_GET['glassesid'];
+        ModelCart::addToCart($u, $g);
         
         $view = 'productAdded';
         $pagetitle = 'Votre panier';

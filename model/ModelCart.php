@@ -29,13 +29,13 @@ class ModelCart {
 
             $values = array(
                 'login_user' => $login_user,
-                'id_glasses' => $id_glasses,
+                'id_glasses' => $id_glasses
             );
             $req_prep->execute($values);
             $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelCart');
             $p = $req_prep->fetch();
-            if (isset($p)) {
-                $sql = "UPDATE `g_cart` SET `quantity` = `quantity` + 1 WHERE login_user = :login_user AND id_glasses = :id_glasses";
+            if ($p == false) {
+                $sql = "INSERT INTO g_cart(login_user, id_glasses, quantity) VALUES (:login_user, :id_glasses, '1')";
                 $req_prep = Model::getPDO()->prepare($sql);
 
                 $values = array(
@@ -44,7 +44,7 @@ class ModelCart {
                 );
                 $req_prep->execute($values);
             } else {
-                $sql = "INSERT INTO g_cart(login_user, id_glasses, quantity) VALUES (:login_user, :id_glasses, '1')";
+                $sql = "UPDATE `g_cart` SET `quantity` = `quantity` + 1 WHERE login_user = :login_user AND id_glasses = :id_glasses";
                 $req_prep = Model::getPDO()->prepare($sql);
 
                 $values = array(

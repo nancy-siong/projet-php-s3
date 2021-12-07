@@ -118,7 +118,7 @@ Class ControllerUser {
             $pagetitle='Erreur!';
             require File::build_path(array('view','view.php'));
         }else{
-            $_SESSION[$u->getName()] = $u;
+            $_SESSION['user'] = $u;
             $controller = 'user';
             $view='connected';
             $pagetitle='Connecté';
