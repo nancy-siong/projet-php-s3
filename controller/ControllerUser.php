@@ -71,7 +71,7 @@ Class ControllerUser {
     
     public static function create() {
         $controller='user';
-        $view='update';
+        $view='create';
         $pagetitle='Inscription';
         require File::build_path(array('view','view.php'));
     }
@@ -83,7 +83,6 @@ Class ControllerUser {
         );
         if (ModelUser::passwordMatched($data)) {
             $u = new ModelUser($_GET['login'], $_GET['password'], $_GET['name'], $_GET['surname']);
-            die(var_dump($u));
             $u -> save();
             $tab_u = ModelUser::getAllUsers();
             $controller='user';
