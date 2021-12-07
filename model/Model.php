@@ -83,6 +83,32 @@ class Model
             die();
         }
     }
+
+    public static function delete($primary_value) {
+        $table_name = static::$object;
+        $class_name = 'Model' . ucfirst(str_replace('g_','',$table_name));
+        $primary_key = static::$primary;
+
+        try {
+            $sql = "DELETE FROM $table_name WHERE $primary_key = :primary_value";
+            $req_prep = self::getPDO()->prepare($sql);
+
+            $values = array(
+                "primary_value" => $primary_value,
+            );
+
+            $req_prep->execute($values);
+            return true;
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage();
+            } else {
+                echo "Impossible de supprimer l'objet $primary_value de la table $class_name";
+                echo '<a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
 }
 
 ?>

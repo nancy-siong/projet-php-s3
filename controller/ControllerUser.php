@@ -61,8 +61,8 @@ Class ControllerUser {
 
     public static function delete(){
         $login = $_GET['login'];
-        ModelUser::deleteByLogin($login);
-        $tab_u = ModelUser::getAllUsers();
+        ModelUser::delete($login);
+        $tab_u = ModelUser::selectAll();
         $controller='user';
         $view='deleted';
         $pagetitle='Suppression utilisateur';

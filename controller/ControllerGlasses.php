@@ -46,7 +46,7 @@ class ControllerGlasses {
 
     public static function delete() {
         $id = $_GET['glassesid'];
-        ModelGlasses::deleteById($id);
+        ModelGlasses::delete($id);
         $controller='glasses';
         $view='deleted';
         $pagetitle='Article supprimé';
