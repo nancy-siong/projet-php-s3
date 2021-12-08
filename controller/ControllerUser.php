@@ -44,10 +44,9 @@ Class ControllerUser {
     public static function updated(){
         $data = array(
             "login" => $_GET['login'],
-            /*
             "name" => $_GET['name'],
             "surname" => $_GET['surname'],
-            "password" => Security::hacher($_GET['password']),*/
+            "password" => Security::hacher($_GET['password']),
             "newname" => $_GET['newname'],
             "newsurname" => $_GET['newsurname'],
             "newpassword" => Security::hacher($_GET['newpassword'])
@@ -83,7 +82,7 @@ Class ControllerUser {
     public static function created() {
         $data = array (
             "newpassword" => Security::hacher($_GET['newpassword']),
-            "confirmedpassword" => Security::hacher($_GET['confirmed_password'])
+            "confirmed_password" => Security::hacher($_GET['confirmed_password'])
         );
         if (ModelUser::passwordMatched($data)) {
             $u = new ModelUser(
