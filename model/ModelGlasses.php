@@ -2,14 +2,14 @@
 
 require_once File::build_path(array('model', 'Model.php'));
 
-class ModelGlasses
-{
-
+class ModelGlasses extends Model {
     private $id;
     private $title;
     private $description;
     private $price;
 
+    protected static $object = 'g_glasses';
+    protected static $primary = 'id';
 
     public function __construct($id = NULL, $title = NULL, $description = NULL, $price = NULL)
     {
@@ -73,45 +73,6 @@ class ModelGlasses
         $this->price = $price;
     }
 
-
-    public static function getAllGlasses()
-    {
-        $pdo = Model::getPDO();
-        $sql = "SELECT * FROM g_glasses";
-        $rep = $pdo->query($sql);
-        $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelGlasses');
-        $tab_glasses = $rep->fetchAll();
-        return $tab_glasses;
-    }
-
-
-    public static function getGlassesById($id)
-    {
-        try {
-            $sql = "SELECT * FROM g_glasses WHERE id = :id";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "id" => $id,
-            );
-            $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelGlasses');
-            $tab_glasses = $req_prep->fetchAll();
-            if (empty($tab_glasses)) {
-                return false;
-            }
-            return $tab_glasses[0];
-
-        } catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
-    }
-
-
     public function save()
     {
         try {
@@ -133,19 +94,6 @@ class ModelGlasses
             die();
         }
     }
-
-
-    public static function deleteById($id) {
-        $sql = "DELETE FROM g_glasses WHERE id=:id";
-        $req_prep = Model::getPDO()->prepare($sql);
-
-        $values = array(
-            "id" => $id,
-        );
-
-        $req_prep->execute($values);
-    }
-
 
     public static function update($data){
         try {

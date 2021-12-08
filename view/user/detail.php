@@ -1,8 +1,8 @@
 <div>
-    <p>Login : <?=$u->getLogin()?></p>
-    <p>Prénom : <?=$u->getName()?></p>
-    <p>Nom : <?=$u->getSurname() ?></p>
-    <p>Mot de passe : <?=$u->getPassword()?></p>
+    <p>Login : <?=htmlspecialchars($u->getLogin())?></p>
+    <p>Prénom : <?=htmlspecialchars($u->getName())?></p>
+    <p>Nom : <?=htmlspecialchars($u->getSurname())?></p>
+    <p>Mot de passe : <?=htmlspecialchars($u->getPassword())?></p>
 </div>
 
 <div>

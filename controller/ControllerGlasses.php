@@ -4,22 +4,22 @@ require_once File::build_path(array('model','ModelGlasses.php'));
 
 class ControllerGlasses {
 
+    protected static $object = 'glasses';
+
     public static function readAll()
     {
-        $controller = 'glasses';
         $view = 'list';
         $pagetitle = 'Liste des Lunettes';
-        $tab_g = ModelGlasses::getAllGlasses();  
+        $tab_g = ModelGlasses::selectAll();
         require File::build_path(array('view','view.php'));
-
     }
 
     public static function read(){
-        if (ModelGlasses::getGlassesById($_GET['glassesid']) == false){
+        if (ModelGlasses::select($_GET['glassesid']) == false){
             require File::build_path(array('view','glasses','error.php'));
             return false;
         }
-        $g = ModelGlasses::getGlassesById($_GET['glassesid']);
+        $g = ModelGlasses::select($_GET['glassesid']);
         $controller='glasses';
         $view='detail';
         $pagetitle='Informations de la paire de lunettes';
@@ -46,7 +46,7 @@ class ControllerGlasses {
 
     public static function delete() {
         $id = $_GET['glassesid'];
-        ModelGlasses::deleteById($id);
+        ModelGlasses::delete($id);
         $controller='glasses';
         $view='deleted';
         $pagetitle='Article supprimé';
