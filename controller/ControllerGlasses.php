@@ -55,7 +55,7 @@ class ControllerGlasses {
 
     public static function update(){
         $id = $_GET['glassesid'];
-        $g = ModelGlasses::getGlassesById($id);
+        $g = ModelGlasses::select($id);
         $controller='glasses';
         $view='update';
         $pagetitle='Maj dun article';
