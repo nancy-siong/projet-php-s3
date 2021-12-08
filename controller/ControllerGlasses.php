@@ -68,7 +68,6 @@ class ControllerGlasses {
             "title" => $_GET['title'],
             "description" => $_GET['description'],
             "price" => $_GET['price'],
-            "newglassesid" => $_GET['newglassesid'],
             "newtitle" => $_GET['newtitle'],
             "newdescription" => $_GET['newdescription'],
             "newprice" => $_GET['newprice']

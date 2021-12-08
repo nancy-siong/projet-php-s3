@@ -13,6 +13,7 @@
                 <li><a href="index.php?action=create&controller=glasses"> Créer un article </a></li>
                 <li><a href="index.php?action=create&controller=user"> S'inscrire </a></li>
                 <li><a href="index.php?action=connect&controller=user"> Se connecter </a></li>
+                <li><a href="index.php?action=getCart&controller=cart&user_id=<?php $_SESSION['user']->getLogin() ?>"> Panier </a></li>
             </ul>
         </nav>
         <?php

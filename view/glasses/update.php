@@ -12,27 +12,23 @@
     </p>
     
     <p>
-    <label for="newglassesid_id">ID utilisateur :</label> :
-    <input type="text" placeholder="nouvel ID" name="newglassesid" id="newglassesid_id"/>
+    <label for="newglassesid_id">ID Produit :</label> 
+    <input readonly type="text" placeholder="nouvel ID" name="glassesid" id="glassesid_id" value="<?= (isset($g) ? $g->getId() : "") ?>"/>
     </p> 
 
     <p>
-      <label for="newtitle_id">Titre :</label> :
+      <label for="newtitle_id">Titre :</label> 
       <input type="text" placeholder="nouveau titre" name="newtitle" id="newtitle_id" />
     </p>
     
     <p>
-      <label for="newdescription_id">Description :</label> : 
+      <label for="newdescription_id">Description :</label> 
       <input type="text" placeholder="nouvelle description" name="newdescription" id="newdescription_id" />
     </p>
 
     <p>
-    <label for="newprice_id">Prix :</label> : 
+    <label for="newprice_id">Prix :</label> 
     <input type="int" placeholder="nouveau prix" name="newprice" id="newprice_id" />
-    </p>
-
-    <p>
-      <input type="hidden" name="glassesid" id="glassesid_id" value=<?=rawurlencode($g->getId())?>/>
     </p>
 
     <p>

@@ -35,19 +35,19 @@ class ControllerCart
         require File::build_path(array("view", "view.php"));
     }
 
-    public static function read()
+    public static function getCart()
     {
-        $immatriculation = $_GET['immat'];
-        $pagetitle = "Votre panier";
-
-        $v = ModelVoiture::select($immatriculation);
-
-        if ($v) {
-            $view = 'detail';
-            require File::build_path(array("view", "view.php"));
-        } else {
-            self::error('Immatriculation non reconnue');
+        if (ModelCart::findCartByUser($_GET['user_id']) == false){
+            $controller='cart';
+            $view = 'emptyCart';
+            require File::build_path(array('view','cart','empty.php'));
+            die;
         }
+        $tab_c = ModelCart::findCartByUser($_GET['user_id']);
+        $controller='cart';
+        $view='cart';
+        $pagetitle='Votre panier';
+        require File::build_path(array('view','view.php'));
     }
 
     public static function error($error = 'Une erreur est survenue')

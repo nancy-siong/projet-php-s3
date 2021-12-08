@@ -22,6 +22,15 @@ class ModelCart {
         return $this->login_user;
     }
 
+    public function getIdGlasses() {
+        return $this->id_glasses;
+        
+    }
+
+    public function getQuantity() {
+        return $this->quantity;
+    }
+
     public static function addToCart($login_user, $id_glasses) {
         try {
             $sql = "SELECT * FROM g_cart WHERE login_user = :login_user AND id_glasses = :id_glasses";

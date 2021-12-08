@@ -149,9 +149,7 @@ class ModelGlasses
 
     public static function update($data){
         try {
-            if($data['newglassesid'] == null){
-                $data['newglassesid'] = $data['glassesid'];
-            }
+            
             if($data['newtitle'] == null){
                 $data['newtitle'] = $data['title'];
             }
@@ -161,11 +159,10 @@ class ModelGlasses
             if($data['newprice'] == null){
                 $data['newprice'] = $data['price'];
             }
-            $sql = "UPDATE `g_glasses` SET `id` = :newglassesid, `title` = :newtitle, `description` = :newdescription, `price` = :newprice WHERE `g_glasses`.`id` = :glassesid";
+            $sql = "UPDATE `g_glasses` SET `id` = :glassesid, `title` = :newtitle, `description` = :newdescription, `price` = :newprice WHERE `g_glasses`.`id` = :glassesid";
             $req_prep = Model::getPDO()->prepare($sql);
             $values = array(
                 "glassesid" => $data['glassesid'],
-                "newglassesid" => $data['newglassesid'],
                 "newtitle" => $data['newtitle'],
                 "newdescription" => $data['newdescription'],
                 "newprice" => $data['newprice']
