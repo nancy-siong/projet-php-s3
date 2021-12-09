@@ -63,25 +63,4 @@ class ModelCart extends Model {
         }
     }
 
-    /*public static function findCartByUser($login_user) {
-        try {
-            $sql = "SELECT * FROM g_cart WHERE login_user = :login_user;";
-            $req_prep = Model::getPDO()->prepare($sql);
-
-            $values = array(
-                'login_user' => $login_user,
-            );
-            $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelCart');
-            return $req_prep->fetchAll();
-        } catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            } else {
-                echo 'Impossible de récupérer le panier de l\'utilisateur : ', $login_user;
-            }
-            die();
-        }
-    }*/
-
 }
