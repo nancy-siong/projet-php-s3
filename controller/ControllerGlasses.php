@@ -28,10 +28,22 @@ class ControllerGlasses extends Controller {
     }
 
     public static function create(){
-        $controller=self::$object;
-        $view='create';
-        $pagetitle='Inscription';
-        require File::build_path(array('view','view.php'));
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $controller=self::$object;
+                $view='create';
+                $pagetitle='Inscription';
+                require File::build_path(array('view','view.php'));
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+            require File::build_path(array('view','view.php'));
+        }
     }
 
     public static function created(){
@@ -42,7 +54,6 @@ class ControllerGlasses extends Controller {
             "price" => $_GET['price'],
             "stock" => $_GET['stock']
         ));
-        
         $tab_g = ModelGlasses::selectAll();
         $controller=self::$object;
         $view='created';
@@ -51,22 +62,46 @@ class ControllerGlasses extends Controller {
     }
 
     public static function delete() {
-        $id = $_GET['glassesid'];
-        ModelGlasses::delete($id);
-        $tab_g=ModelGlasses::selectAll();
-        $controller=self::$object;
-        $view='deleted';
-        $pagetitle='Article supprimé';
-        require File::build_path(array('view', 'view.php'));
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $id = $_GET['glassesid'];
+                ModelGlasses::delete($id);
+                $tab_g=ModelGlasses::selectAll();
+                $controller=self::$object;
+                $view='deleted';
+                $pagetitle='Article supprimé';
+                require File::build_path(array('view', 'view.php'));
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+            require File::build_path(array('view','view.php'));
+        }
     }
 
     public static function update(){
-        $id = $_GET['glassesid'];
-        $g = ModelGlasses::select($id);
-        $controller=self::$object;
-        $view='update';
-        $pagetitle='Maj dun article';
-        require File::build_path(array('view','view.php'));
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $id = $_GET['glassesid'];
+                $g = ModelGlasses::select($id);
+                $controller=self::$object;
+                $view='update';
+                $pagetitle='Mise à jour d\'un article';
+                require File::build_path(array('view','view.php'));
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+            require File::build_path(array('view','view.php'));
+        }
     }
 
     public static function updated(){

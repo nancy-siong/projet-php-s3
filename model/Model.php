@@ -129,10 +129,11 @@ class Model
             $req_prep->execute(array_merge($values, $data));
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                die($e->getMessage());
+                echo $e->getMessage();
             } else {
-                return false;
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
+            die();
         }
     }
 
@@ -149,10 +150,11 @@ class Model
             $req_prep->execute($data);
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
-                die($e->getMessage());
+                echo $e->getMessage();
             } else {
-                return false;
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
+            die();
         }
     }
 }
