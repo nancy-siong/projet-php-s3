@@ -28,6 +28,12 @@ class ControllerCart extends Controller
         $controller = 'cart';
         $u = $_SESSION['user']->getLogin();
         $g = $_GET['glassesid'];
+        if(ModelCart::addToCart($u, $g) == false){
+            $view = 'outOfStock';
+            $pagetitle = 'Votre panier';
+            require File::build_path(array("view", "view.php"));
+            die;
+        }
         ModelCart::addToCart($u, $g);
         
         $view = 'productAdded';

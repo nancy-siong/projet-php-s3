@@ -1,6 +1,7 @@
 <?php
 
 require_once File::build_path(array('model', 'Model.php'));
+require_once File::build_path(array('model', 'ModelGlasses.php'));
 
 class ModelCart extends Model {
 
@@ -24,35 +25,56 @@ class ModelCart extends Model {
 
     public static function addToCart($login_user, $id_glasses) {
         try {
-            $sql = "SELECT * FROM g_cart WHERE login_user = :login_user AND id_glasses = :id_glasses";
+            $sql = "SELECT stock FROM g_glasses WHERE id = :id";
             $req_prep = Model::getPDO()->prepare($sql);
-
             $values = array(
-                'login_user' => $login_user,
-                'id_glasses' => $id_glasses
+                'id' => $id_glasses
             );
             $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelCart');
-            $p = $req_prep->fetch();
-            if ($p == false) {
-                $sql = "INSERT INTO g_cart(login_user, id_glasses, quantity) VALUES (:login_user, :id_glasses, '1')";
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelGlasses');
+            $s = $req_prep->fetch();
+            if($s->getStock() > 0){
+                $sql = "SELECT * FROM g_cart WHERE login_user = :login_user AND id_glasses = :id_glasses";
                 $req_prep = Model::getPDO()->prepare($sql);
 
                 $values = array(
                     'login_user' => $login_user,
-                    'id_glasses' => $id_glasses,
+                    'id_glasses' => $id_glasses
                 );
                 $req_prep->execute($values);
-            } else {
-                $sql = "UPDATE `g_cart` SET `quantity` = `quantity` + 1 WHERE login_user = :login_user AND id_glasses = :id_glasses";
-                $req_prep = Model::getPDO()->prepare($sql);
+                $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelCart');
+                $p = $req_prep->fetch();
+                if ($p == false) {
+                    $sql = "INSERT INTO g_cart(login_user, id_glasses, quantity) VALUES (:login_user, :id_glasses, '1')";
+                    $req_prep = Model::getPDO()->prepare($sql);
 
+                    $values = array(
+                        'login_user' => $login_user,
+                        'id_glasses' => $id_glasses,
+                    );
+                    $req_prep->execute($values);
+                    return true;
+                } else {
+                    $sql = "UPDATE `g_cart` SET `quantity` = `quantity` + 1 WHERE login_user = :login_user AND id_glasses = :id_glasses";
+                    $req_prep = Model::getPDO()->prepare($sql);
+
+                    $values = array(
+                        'login_user' => $login_user,
+                        'id_glasses' => $id_glasses,
+                    );
+                    $req_prep->execute($values);
+                }
+                $sql = "UPDATE `g_glasses` SET `stock` = `stock` - 1 WHERE id = :id";
+                $req_prep = Model::getPDO()->prepare($sql);
                 $values = array(
-                    'login_user' => $login_user,
-                    'id_glasses' => $id_glasses,
+                    'id' => $id_glasses
                 );
                 $req_prep->execute($values);
+                return true;
+            }else{
+                return false;
             }
+            
         } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
