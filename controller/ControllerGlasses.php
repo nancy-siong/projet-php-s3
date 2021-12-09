@@ -119,6 +119,7 @@ class ControllerGlasses extends Controller {
             $view='updated';
             $pagetitle='Maj dun article';
             require File::build_path(array('view','view.php'));
+            die;
         }
         $controller=self::$object;
         $view='updated';

@@ -17,14 +17,13 @@ class ControllerCart extends Controller
         $controller = self::$object;
         $u = $_SESSION['user']->getLogin();
         $g = $_GET['glassesid'];
-        /*if(ModelCart::addToCart($u, $g) == false){
+        if(ModelCart::isInStock($g) == false){
             $view = 'outOfStock';
             $pagetitle = 'Votre panier';
             require File::build_path(array("view", "view.php"));
             die;
-        }*/
+        }
         ModelCart::addToCart($u, $g);
-        
         $view = 'productAdded';
         $pagetitle = 'Votre panier';
         require File::build_path(array("view", "view.php"));
