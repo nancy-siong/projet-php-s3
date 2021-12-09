@@ -75,7 +75,7 @@ class Model
             if (empty($tab_selected))
                 return false;
             return $tab_selected[0];
-        } catch (PDOExceptions $e) {
+        } catch (PDOException $e) {
             if (Conf::getDebug()) {
                 echo $e->getMessage();
             } else {

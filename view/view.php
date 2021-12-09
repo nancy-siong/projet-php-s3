@@ -14,9 +14,17 @@
 
             <ul>
 
+
                 <li><a href="index.php?action=readAll&controller=glasses"> Liste des lunettes </a></li>
 
-                <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
+                <?php
+                if (isset($_SESSION['user'])) {
+                    if($_SESSION['user']->getIsAdmin() == 1) { ?>
+                        <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
+                    <?php 
+                    }
+                } ?>
+
                 
                 <!-- (ADMIN) Liste des clients -->
 
