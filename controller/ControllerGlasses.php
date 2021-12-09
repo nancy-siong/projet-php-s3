@@ -110,14 +110,21 @@ class ControllerGlasses extends Controller {
         !empty($_GET['newdescription']) ? $values["description"] = $_GET['newdescription'] : "";
         !empty($_GET['newprice']) ? $values['price'] = ($_GET['newprice']) : "";
         !empty($_GET['newstock']) ? $values['stock'] = ($_GET['newstock']) : "";
-        ModelGlasses::update($values,array(
-            "id" => $_GET['newglassesid']
-            )
-        );
+        if(!empty($values)){
+            ModelGlasses::update($values,array(
+                "id" => $_GET['newglassesid']
+                )
+            );
+            $controller=self::$object;
+            $view='updated';
+            $pagetitle='Maj dun article';
+            require File::build_path(array('view','view.php'));
+        }
         $controller=self::$object;
         $view='updated';
         $pagetitle='Maj dun article';
         require File::build_path(array('view','view.php'));
+        
     }
 
 

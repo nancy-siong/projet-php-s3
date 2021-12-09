@@ -125,6 +125,7 @@ class Model
             foreach (array_keys($data) as $key)
                 $sql .= " $key = :$key AND";
             $sql = rtrim($sql, " AND");
+            
             $req_prep = Model::getPDO()->prepare($sql);
             $req_prep->execute(array_merge($values, $data));
         } catch (PDOException $e) {

@@ -78,8 +78,7 @@
         </header>
         
         <?php
-            $filepath = File::build_path(array("view", static::$object, "$view.php"));
-            require $filepath;
+            require File::build_path(array("view", static::$object, "$view.php"));
         ?>
 
         <p style="border: 1px solid black;text-align:right;padding-right:1em;">

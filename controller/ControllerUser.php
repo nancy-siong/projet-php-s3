@@ -57,14 +57,22 @@ Class ControllerUser extends Controller{
         !empty($_GET['newname']) ? $values["name"] = $_GET['newname'] : "";
         !empty($_GET['newsurname']) ? $values["surname"] = $_GET['newsurname'] : "";
         !empty($_GET['newpassword']) ? $values["password"] = Security::hacher($_GET['newpassword']) : "";
-        ModelUser::update($values, array(
-            "login" => $_GET['login']
-            )
-        );
-        $controller='user';
-        $view='updated';
-        $pagetitle='Maj dun utilisateur';
-        require File::build_path(array('view','view.php'));
+        if (!empty($values)) {
+            ModelUser::update($values, array(
+                "login" => $_GET['login']
+                )
+            );
+            $controller='user';
+            $view='updated';
+            $pagetitle='Maj dun utilisateur';
+            require File::build_path(array('view','view.php'));
+        }else{
+            $controller='user';
+            $view='updated';
+            $pagetitle='Maj dun utilisateur';
+            require File::build_path(array('view','view.php'));
+        }
+        
 
     }
 
