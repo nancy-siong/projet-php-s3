@@ -16,12 +16,12 @@
 
     <p>
       <label for="surname_id">Nom :</label>
-      <input type="text" placeholder="Nouveau nom" name="newsurname" id="newsurname_id" required/>
+      <input type="text" placeholder="Nouveau nom" name="newsurname" id="newsurname_id"/>
     </p>
 
     <p>
       <label for="name_id">Prénom :</label>
-      <input type="text" placeholder="Nouveau prénom" name="newname" id="newname_id" required/>
+      <input type="text" placeholder="Nouveau prénom" name="newname" id="newname_id"/>
     </p>
 
     <p>

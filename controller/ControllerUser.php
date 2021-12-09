@@ -93,23 +93,11 @@ Class ControllerUser extends Controller{
     }
     
     public static function create() {
-        if (isset($_SESSION['user'])) {
-            if($_SESSION['user']->getIsAdmin() == 1) {
-                $controller='user';
-                $view='update';
-                $pagetitle='Créer un nouveau compte';
-                $isUpdating=false;
-                require File::build_path(array('view','view.php'));
-            }
-            else {
-                $view='error';
-                require File::build_path(array('view','view.php'));
-            }
-        }
-        else {
-            $view='error';
-                require File::build_path(array('view','view.php'));
-        }
+            $controller='user';
+            $view='update';
+            $pagetitle='Créer un nouveau compte';
+            $isUpdating=false;
+            require File::build_path(array('view','view.php'));
     }
 
     public static function created() {
