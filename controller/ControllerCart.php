@@ -25,7 +25,7 @@ class ControllerCart extends Controller
             require File::build_path(array('view','view.php'));
             die;
         }
-        $controller = 'cart';
+        $controller = self::$object;
         $u = $_SESSION['user']->getLogin();
         $g = $_GET['glassesid'];
         if(ModelCart::addToCart($u, $g) == false){
@@ -43,17 +43,21 @@ class ControllerCart extends Controller
 
     public static function read()
     {
-        $view = 'cart';
-        $pagetitle = "Votre panier";
+        $controller = self::$object;
+        $u = $_SESSION['user']->getLogin();
+        $tab_c = ModelCart::getCartByUser($u);
 
-        $v = ModelCart::select($immatriculation);
+        $i = 0;
+        foreach ($tab_c as $c) {
+            $tab[$i]['quantity'] = $c->getQuantity();
+            $tab[$i]['id_glasses'] = htmlspecialchars($c->getIdGlasses());
+            $tab[$i]['price'] = ModelGlasses::select($c->getIdGlasses())->getPrice();
+            $i++;
+        };
 
-        if ($v) {
-            $view = 'detail';
-            require File::build_path(array("view", "view.php"));
-        } else {
-            self::error('Immatriculation non reconnue');
-        }
+        $view='detail';
+        $pagetitle='Panier';
+        require File::build_path(array('view','view.php'));
     }
 
     public static function error($error = 'Une erreur est survenue')

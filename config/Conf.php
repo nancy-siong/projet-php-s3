@@ -2,13 +2,13 @@
 class Conf
 {
     static private $databases = array(
-        'hostname' => 'localhost',
+        'hostname' => 'webinfo',
 
-        'database' => 'projet-php-s3',
+        'database' => 'siongn',
 
-        'login' => 'root',
+        'login' => 'siongn',
 
-        'password' => ''
+        'password' => 'phpmysql'
     );
 
     static private $debug = True;

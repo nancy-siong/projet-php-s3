@@ -8,7 +8,9 @@ class ModelCart extends Model {
     private $login_user;
     private $id_glasses;
     private $quantity;
-    protected static $object = 'cart';
+
+    protected static $object = 'g_cart';
+    protected static $primary = 'login_user';
 
     public function __construct($login_user = NULL, $id_glasses = NULL, $quantity = NULL)
     {
@@ -21,6 +23,18 @@ class ModelCart extends Model {
 
     public function getLoginUser() {
         return $this->login_user;
+    }
+
+    public function getIdGlasses() {
+        return $this->id_glasses;
+    }
+
+    public function getQuantity() {
+        return $this->quantity;
+    }
+
+    public function getPrice() {
+        return $this->price;
     }
 
     public static function addToCart($login_user, $id_glasses) {
@@ -80,6 +94,35 @@ class ModelCart extends Model {
                 echo $e->getMessage();
             } else {
                 echo 'Impossible de récupérer le panier de l\'utilisateur : ', $login_user;
+            }
+            die();
+        }
+    }
+
+    public static function getCartByUser($login) {
+        try {
+            $sql = "SELECT * FROM g_cart WHERE login_user = :login_user";
+            // Préparation de la requête
+            $req_prep = Model::getPDO()->prepare($sql);
+    
+            $values = array(
+                "login_user" => $login,
+            );
+            // On donne les valeurs et on exécute la requête	 
+            $req_prep->execute($values);
+        
+            // On récupère les résultats comme précédemment
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelCart');
+            $tab_c = $req_prep->fetchAll();
+            // Attention, si il n'y a pas de résultats, on renvoie false
+            if (empty($tab_c))
+                return false;
+            return $tab_c;
+        } catch(PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
             }
             die();
         }
