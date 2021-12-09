@@ -12,8 +12,9 @@
                 <li><a href="index.php?action=readAll&controller=glasses"> Liste des lunettes </a></li>
                 <li><a href="index.php?action=create&controller=glasses"> Créer un article </a></li>
                 <li><a href="index.php?action=create&controller=user"> S'inscrire </a></li>
-                <li><a href="index.php?action=connect&controller=user"> Se connecter </a></li>
                 <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
+                <li><a href="index.php?action=connect&controller=user"> Se connecter </a></li>
+                <li><a href="index.php?action=disconnect&controller=user"> Se déconnecter </a></li>
             </ul>
         </nav>
         

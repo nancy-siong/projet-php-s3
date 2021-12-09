@@ -2,10 +2,10 @@
 require_once File::build_path(array("model", "ModelCart.php"));
 require_once File::build_path(array('model','ModelUser.php'));
 
-class ControllerCart
+class ControllerCart extends Controller
 {
     protected static $object = 'cart';
-    //$controller = 'cart';
+
 
     public static function readAll()
     {
@@ -18,6 +18,13 @@ class ControllerCart
     }
 
     public static function addToCart() {
+        if(!isset($_SESSION['user'])){
+            $controller = 'user';
+            $view = 'connect';
+            $pagetitle = 'Connexion';
+            require File::build_path(array('view','view.php'));
+            die;
+        }
         $controller = 'cart';
         $u = $_SESSION['user']->getLogin();
         $g = $_GET['glassesid'];

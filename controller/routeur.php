@@ -3,29 +3,31 @@ require_once File::build_path(array('controller','ControllerGlasses.php'));
 require_once File::build_path(array('controller','ControllerUser.php'));
 require_once File::build_path(array('controller','ControllerCart.php'));
 
-if (!empty($_GET)) {
-    if (isset($_GET['action'])) {
-        $action = $_GET['action'];
-    }
+$action = "readAll";
+$controller = "glasses";
 
-    $controller = 'glasses';
-    if (isset($_GET['controller'])) {
-        $controller = $_GET['controller'];
-    }
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+}
 
-    $controller_class = "Controller" . ucfirst($controller);
+if (isset($_GET['controller'])) {
+    $controller = $_GET['controller'];
+}
 
-    if (class_exists($controller_class)) {
-        if (in_array($action, get_class_methods($controller_class))) {
-            $controller_class::$action();
-        } else {
-            ControllerGlasses::error("Action invalide");
-        }
-    } else {
-        ControllerGlasses::error("Controller invalide");
-    }
+$ControllerGlasses_fcts = get_class_methods('ControllerGlasses');
+$ControllerUser_fcts = get_class_methods('ControllerUser');
+$ControllerCart_fcts = get_class_methods('ControllerCart');
+
+
+if (in_array($action, $ControllerGlasses_fcts) && $controller == "glasses") {
+    ControllerGlasses::$action();
+
+} else if(in_array($action, $ControllerUser_fcts) && $controller == "user"){
+    ControllerUser::$action();
+} else if (in_array($action, $ControllerCart_fcts) && $controller == "cart") {
+    ControllerCart::$action();   
 } else {
-    ControllerGlasses::readAll();
+    ControllerGlasses::error();
 }
 
 ?>

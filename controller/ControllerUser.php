@@ -1,16 +1,13 @@
 <?php
 require_once File::build_path(array('model','ModelUser.php'));
+require_once File::build_path(array('lib','Security.php'));
 
-Class ControllerUser {
+Class ControllerUser extends Controller{
 
     protected static $object = 'user';
 
-    public static function errorAction() {
-        $controller='user';
-        $view='errorAction';
-        $pagetitle='Erreur!';
-        require File::build_path(array('view','view.php'));
-    }
+    
+
 
     public static function readAll() {
         $tab_u = ModelUser::selectAll(); 
@@ -34,24 +31,24 @@ Class ControllerUser {
 
     public static function update(){
         $login = $_GET['login'];
-        $u = ModelUser::getUserByLogin($login);
+        $u = ModelUser::select($login);
         $controller='user';
         $view='update';
         $pagetitle="Mise à jour";
+        $isUpdating=true;
         require File::build_path(array('view','view.php'));
     }
 
     public static function updated(){
-        $data = array(
-            "login" => $_GET['login'],
-            "name" => $_GET['name'],
-            "surname" => $_GET['surname'],
-            "password" => $_GET['password'],
-            "newname" => $_GET['newname'],
-            "newsurname" => $_GET['newsurname'],
-            "newpassword" => $_GET['newpassword']
+
+        $values = array();
+        !empty($_GET['newname']) ? $values["name"] = $_GET['newname'] : "";
+        !empty($_GET['newsurname']) ? $values["surname"] = $_GET['newsurname'] : "";
+        !empty($_GET['newpassword']) ? $values["password"] = Security::hacher($_GET['newpassword']) : "";
+        ModelUser::update($values, array(
+            "login" => $_GET['login']
+            )
         );
-        ModelUser::update($data);
         $controller='user';
         $view='updated';
         $pagetitle='Maj dun utilisateur';
@@ -73,26 +70,33 @@ Class ControllerUser {
     
     public static function create() {
         $controller='user';
-        $view='create';
+        $view='update';
         $pagetitle='Inscription';
+        $isUpdating=false;
         require File::build_path(array('view','view.php'));
     }
 
     public static function created() {
         $data = array (
-            "newpassword" => $_GET['newpassword'],
-            "confirmedpassword" => $_GET['confirmed_password']
+            "newpassword" => Security::hacher($_GET['newpassword']),
+            "confirmed_password" => Security::hacher($_GET['confirmed_password'])
         );
         if (ModelUser::passwordMatched($data)) {
-            $u = new ModelUser($_GET['login'], $_GET['password'], $_GET['name'], $_GET['surname']);
-            $u -> save();
-            $tab_u = ModelUser::getAllUsers();
+            ModelUser::save(array(
+                    "login" => $_GET['login'],
+                    "name" => $_GET['newname'],
+                    "surname" => $_GET['newsurname'],
+                    "password" => Security::hacher($_GET['newpassword']),
+                    "isAdmin" => 0
+                )
+            );
+            $tab_u = ModelUser::selectAll();
             $controller='user';
             $view='created';
             $pagetitle='Utilisateur créé';
             require File::build_path(array('view', 'view.php'));
         } else {
-            $tab_u = ModelUser::getAllUsers();
+            $tab_u = ModelUser::selectAll();
             $controller='user';
             $view='errorPasswordConfirmation';
             $pagetitle='Erreur';
@@ -111,7 +115,7 @@ Class ControllerUser {
     public static function connected() {
         $data = array(
             "login" => $_GET['login'],
-            "password" => $_GET['password']
+            "password" => Security::hacher($_GET['password'])
         );
         $u = ModelUser::connect($data);
         if($u == false){
@@ -126,7 +130,6 @@ Class ControllerUser {
             $pagetitle='Connecté';
             require File::build_path(array('view', 'view.php'));
         }
-        
     }
 
     public static function setAdmin() {
@@ -146,4 +149,13 @@ Class ControllerUser {
         $pagetitle = 'Cet utilisateur n\'est plus administrateur';
         require File::build_path(array('view', 'view.php')); 
     }
+
+    public static function disconnect() {
+        session_unset();
+        $tab_g = ModelGlasses::selectAll();
+        $controller = 'user';
+        $view='disconnect';
+        require File::build_path(array('view', 'view.php'));
+    }
+
 }
