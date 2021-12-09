@@ -18,11 +18,9 @@
                 <li><a href="index.php?action=readAll&controller=glasses"> Liste des lunettes </a></li>
 
                 <?php
-                if (isset($_SESSION['user'])) {
-                    if($_SESSION['user']->getIsAdmin() == 1) { ?>
-                        <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
-                    <?php 
-                    }
+                if (isset($_SESSION['user'])) { ?>
+                    <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
+                <?php 
                 } ?>
 
                 
@@ -72,6 +70,11 @@
                     <li><a href="index.php?action=disconnect&controller=user"> Se déconnecter </a></li>
                 <?php
                 } ?>
+
+
+                <!-- (CLIENT) Mon profil 
+                <? /*php $isUpdating=true */?>
+                <li><a href="index.php?action=update&controller=user"> Mon profil </a></li> -->
 
             </ul>
 
