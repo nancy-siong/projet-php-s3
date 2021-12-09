@@ -99,6 +99,23 @@ class ModelCart extends Model {
         }
     }
 
+    public static function isInStock($id){
+        $sql = "SELECT stock FROM g_glasses WHERE id = :id";
+        $req_prep = Model::getPDO()->prepare($sql);
+        $values = array(
+            'id' => $id
+        );
+        $req_prep->execute($values);
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelGlasses');
+        $stock = $req_prep->fetch();
+        if($stock->getStock() <= 0){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
     public static function getCartByUser($login) {
         try {
             $sql = "SELECT * FROM g_cart WHERE login_user = :login_user";
