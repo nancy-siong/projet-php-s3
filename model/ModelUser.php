@@ -47,6 +47,7 @@ class ModelUser extends Model{
         return $this->password = $p;
     }
 
+
     
     public function __construct($l=NULL,$p=NULL,$n=NULL,$s=NULL){
         if(!is_null($l) && !is_null($p) && !is_null($n) && !is_null($s)){

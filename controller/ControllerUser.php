@@ -40,6 +40,7 @@ Class ControllerUser extends Controller{
     }
 
     public static function updated(){
+
         $values = array();
         !empty($_GET['newname']) ? $values["name"] = $_GET['newname'] : "";
         !empty($_GET['newsurname']) ? $values["surname"] = $_GET['newsurname'] : "";
@@ -81,8 +82,7 @@ Class ControllerUser extends Controller{
             "confirmed_password" => Security::hacher($_GET['confirmed_password'])
         );
         if (ModelUser::passwordMatched($data)) {
-            ModelUser::save(
-                array(
+            ModelUser::save(array(
                     "login" => $_GET['login'],
                     "name" => $_GET['newname'],
                     "surname" => $_GET['newsurname'],
