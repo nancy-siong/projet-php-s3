@@ -7,6 +7,7 @@ class Model
     private static $pdo = NULL;
     protected static $object;
     protected static $primary;
+    protected static $table_name;
 
     private static function init()
     {
@@ -40,7 +41,8 @@ class Model
         $class_name = 'Model' . ucfirst(str_replace('g_','',$table_name));
 
         try {
-            $rep = self::getPDO()->query("SELECT * FROM $table_name");
+            $sql = "SELECT * FROM $table_name";
+            $rep = self::getPDO()->query($sql);
             $rep->setFetchMode(PDO::FETCH_CLASS, $class_name);
             return $rep->fetchAll();
         } catch (PDOException $e) {
@@ -83,6 +85,7 @@ class Model
             die();
         }
     }
+    
 
     public static function delete($primary_value) {
         $table_name = static::$object;
@@ -107,6 +110,49 @@ class Model
                 echo '<a href=""> retour a la page d\'accueil </a>';
             }
             die();
+        }
+    }
+
+    public static function update($values, $data)
+    {
+        $table_name = static::$object;
+        try {
+            $sql = "UPDATE " . $table_name . " SET";
+            foreach (array_keys($values) as $key) {
+                $sql .= " $key = :$key, ";
+            }
+            $sql = rtrim($sql, ", ") . " WHERE";
+            foreach (array_keys($data) as $key)
+                $sql .= " $key = :$key AND";
+            $sql = rtrim($sql, " AND");
+            $req_prep = Model::getPDO()->prepare($sql);
+            $req_prep->execute(array_merge($values, $data));
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                die($e->getMessage());
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public static function save($data)
+    {
+        $table_name = static::$object;
+        try {
+            $sql = "INSERT INTO " . $table_name . " VALUES (";
+            foreach (array_keys($data) as $key)
+                $sql .= ":$key, ";
+            $sql = rtrim($sql, ", ");
+            $sql .= ")";
+            $req_prep = Model::getPDO()->prepare($sql);
+            $req_prep->execute($data);
+        } catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                die($e->getMessage());
+            } else {
+                return false;
+            }
         }
     }
 }

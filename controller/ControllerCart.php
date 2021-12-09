@@ -2,10 +2,10 @@
 require_once File::build_path(array("model", "ModelCart.php"));
 require_once File::build_path(array('model','ModelUser.php'));
 
-class ControllerCart
+class ControllerCart extends Controller
 {
     protected static $object = 'cart';
-    //$controller = 'cart';
+
 
     public static function readAll()
     {

@@ -9,7 +9,9 @@
 
     <p>
       <label for="login_id">Login :</label>
-      <input <?=($isUpdating ? "readonly" : "")?> type="text" placeholder="exemple@gmail.com" name="login" id="login_id" value="<?= ($isUpdating? $u->getLogin() : "") ?>" required/>
+
+      <input <?=($isUpdating ? "readonly" : "")?> type="text" placeholder="exemple@gmail.com" name="login" id="login_id" value="<?= ($isUpdating? $u->getLogin() : "") ?>" />
+
     </p>
 
     <p>
@@ -24,12 +26,16 @@
 
     <p>
       <label for="password_id">Mot de passe :</label>
-      <input type="password" placeholder="Nouveau mot de passe" name="newpassword" id="newpassword_id" required/>
+
+      <input type="password" placeholder="Nouveau mot de passe" name="newpassword" id="newpassword_id" />
+
     </p>
 
     <p>
       <label for="password_id">Confirmer le mot passe :</label>
-      <input type="password" placeholder="Nouveau mot de passe" name="confirmed_password" id="confirmed_password_id" required/>
+
+      <input type="password" placeholder="Nouveau mot de passe" name="confirmed_password" id="confirmed_password_id" />
+
     </p>
 
 
