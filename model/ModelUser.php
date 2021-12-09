@@ -47,56 +47,16 @@ class ModelUser extends Model{
         return $this->password = $p;
     }
 
-    public function save(){
-        try {
-            $sql = "INSERT INTO g_user (login,name,surname,password) VALUES (:login,:name,:surname,:password)";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "login" => $this -> getLogin(),
-                "name" => $this -> getName(),
-                "surname" => $this -> getSurname(),
-                "password" => $this -> getPassword()
-            );
-            $req_prep->execute($values);
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
+    
+    public function __construct($l=NULL,$p=NULL,$n=NULL,$s=NULL){
+        if(!is_null($l) && !is_null($p) && !is_null($n) && !is_null($s)){
+            $this->login = $l;
+            $this->name = $n;
+            $this->surname = $s;
+            $this->password = $p;
         }
     }
-
-    public static function update($data){
-        try {
-            if($data['newname'] == null){
-                $data['newname'] = $data['name'];
-            }
-            if($data['newsurname'] == null){
-                $data['newsurname'] = $data['surname'];
-            }
-            if($data['newpassword'] == null){
-                $data['newpassword'] = $data['password'];
-            }
-            $sql = "UPDATE `g_user` SET `name` = :newname, `surname`= :newsurname, `password` = :newpassword WHERE `login` = :login";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "login" => $data['login'],
-                "newname" => $data['newname'],
-                "newsurname" => $data['newsurname'],
-                "newpassword" => $data['newpassword']
-            );
-            $req_prep->execute($values);
-        } catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage();
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
-    }
+    
 
     public static function setAdmin($login) {
         try {
@@ -162,14 +122,6 @@ class ModelUser extends Model{
         
     }
         
-    public function __construct($l=NULL,$p=NULL,$n=NULL,$s=NULL){
-        if(!is_null($l) && !is_null($p) && !is_null($n) && !is_null($s)){
-            $this->login = $l;
-            $this->name = $n;
-            $this->surname = $s;
-            $this->password = $p;
-        }
-    }
 
 
 

@@ -2,16 +2,12 @@
 require_once File::build_path(array('model','ModelUser.php'));
 require_once File::build_path(array('lib','Security.php'));
 
-Class ControllerUser {
+Class ControllerUser extends Controller{
 
     protected static $object = 'user';
 
-    public static function errorAction() {
-        $controller='user';
-        $view='errorAction';
-        $pagetitle='Erreur!';
-        require File::build_path(array('view','view.php'));
-    }
+    
+
 
     public static function readAll() {
         $tab_u = ModelUser::selectAll(); 
@@ -35,7 +31,7 @@ Class ControllerUser {
 
     public static function update(){
         $login = $_GET['login'];
-        $u = ModelUser::getUserByLogin($login);
+        $u = ModelUser::select($login);
         $controller='user';
         $view='update';
         $pagetitle="Mise à jour";
@@ -44,16 +40,14 @@ Class ControllerUser {
     }
 
     public static function updated(){
-        $data = array(
-            "login" => $_GET['login'],
-            "name" => $_GET['name'],
-            "surname" => $_GET['surname'],
-            "password" => Security::hacher($_GET['password']),
-            "newname" => $_GET['newname'],
-            "newsurname" => $_GET['newsurname'],
-            "newpassword" => Security::hacher($_GET['newpassword'])
+        $values = array();
+        !empty($_GET['newname']) ? $values["name"] = $_GET['newname'] : "";
+        !empty($_GET['newsurname']) ? $values["surname"] = $_GET['newsurname'] : "";
+        !empty($_GET['newpassword']) ? $values["password"] = Security::hacher($_GET['newpassword']) : "";
+        ModelUser::update($values, array(
+            "login" => $_GET['login']
+            )
         );
-        ModelUser::update($data);
         $controller='user';
         $view='updated';
         $pagetitle='Maj dun utilisateur';
@@ -87,19 +81,22 @@ Class ControllerUser {
             "confirmed_password" => Security::hacher($_GET['confirmed_password'])
         );
         if (ModelUser::passwordMatched($data)) {
-            $u = new ModelUser(
-                $_GET['login'], 
-                Security::hacher($_GET['newpassword']), 
-                $_GET['newname'], 
-                $_GET['newsurname']);
-            $u -> save();
-            $tab_u = ModelUser::getAllUsers();
+            ModelUser::save(
+                array(
+                    "login" => $_GET['login'],
+                    "name" => $_GET['newname'],
+                    "surname" => $_GET['newsurname'],
+                    "password" => Security::hacher($_GET['newpassword']),
+                    "isAdmin" => 0
+                )
+            );
+            $tab_u = ModelUser::selectAll();
             $controller='user';
             $view='created';
             $pagetitle='Utilisateur créé';
             require File::build_path(array('view', 'view.php'));
         } else {
-            $tab_u = ModelUser::getAllUsers();
+            $tab_u = ModelUser::selectAll();
             $controller='user';
             $view='errorPasswordConfirmation';
             $pagetitle='Erreur';

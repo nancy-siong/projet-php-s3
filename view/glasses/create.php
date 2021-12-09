@@ -33,6 +33,11 @@
     </p>
 
     <p>
+      <label for="price">Stock :</label>
+      <input type="int" placeholder="Stock" name="stock" id="stock" required/>
+    </p>
+
+    <p>
       <input type="submit" value="Envoyer" />
     </p>
 

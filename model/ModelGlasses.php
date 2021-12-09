@@ -7,6 +7,7 @@ class ModelGlasses extends Model {
     private $title;
     private $description;
     private $price;
+    private $stock;
 
     protected static $object = 'g_glasses';
     protected static $primary = 'id';
@@ -29,7 +30,7 @@ class ModelGlasses extends Model {
         return $this->id;
     }
 
-    public function setMarque($id)
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -73,61 +74,16 @@ class ModelGlasses extends Model {
         $this->price = $price;
     }
 
-    public function save()
+    public function getStock()
     {
-        try {
-            $sql = "INSERT INTO g_glasses (id,title,description,price) VALUES (:id,:title,:description,:price)";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "id" => $this -> getId(),
-                "title" => $this -> getTitle(),
-                "description" => $this -> getDescription(),
-                "price" => $this -> getPrice()
-            );
-            $req_prep->execute($values);
-        } catch(PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
+        return $this->stock;
     }
 
-    public static function update($data){
-        try {
-            if($data['newglassesid'] == null){
-                $data['newglassesid'] = $data['glassesid'];
-            }
-            if($data['newtitle'] == null){
-                $data['newtitle'] = $data['title'];
-            }
-            if($data['newdescription'] == null){
-                $data['newdescription'] = $data['description'];
-            }
-            if($data['newprice'] == null){
-                $data['newprice'] = $data['price'];
-            }
-            $sql = "UPDATE `g_glasses` SET `id` = :newglassesid, `title` = :newtitle, `description` = :newdescription, `price` = :newprice WHERE `g_glasses`.`id` = :glassesid";
-            $req_prep = Model::getPDO()->prepare($sql);
-            $values = array(
-                "glassesid" => $data['glassesid'],
-                "newglassesid" => $data['newglassesid'],
-                "newtitle" => $data['newtitle'],
-                "newdescription" => $data['newdescription'],
-                "newprice" => $data['newprice']
-            );
-            $req_prep->execute($values);
-        } catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
+    public function setStock($stock)
+    {
+        return $this->stock = $stock;
     }
+
 }
 
 

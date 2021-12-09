@@ -1,1 +1,1 @@
-<p> Les informations de l'utilisateur ont été mises à jour! </p>
+<p> Les informations de l'article ont été mises à jour! </p>

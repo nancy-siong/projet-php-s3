@@ -1,13 +1,14 @@
 <?php
-
+require_once File::build_path(array('controller','Controller.php'));
 require_once File::build_path(array('model','ModelGlasses.php'));
 
-class ControllerGlasses {
+class ControllerGlasses extends Controller {
 
     protected static $object = 'glasses';
 
     public static function readAll()
     {
+        $controller = self::$object;
         $view = 'list';
         $pagetitle = 'Liste des Lunettes';
         $tab_g = ModelGlasses::selectAll();
@@ -20,25 +21,30 @@ class ControllerGlasses {
             return false;
         }
         $g = ModelGlasses::select($_GET['glassesid']);
-        $controller='glasses';
+        $controller= self::$object;
         $view='detail';
         $pagetitle='Informations de la paire de lunettes';
         require File::build_path(array('view','view.php'));
     }
 
     public static function create(){
-        $controller='glasses';
+        $controller=self::$object;
         $view='create';
         $pagetitle='Inscription';
         require File::build_path(array('view','view.php'));
     }
 
     public static function created(){
-        $g = new ModelGlasses($_GET['glassesid'], $_GET['title'], $_GET['description'], $_GET['price']);
-        $g -> save();
+        ModelGlasses::save(array(
+            "id" => $_GET['glassesid'],
+            "title" => $_GET['title'], 
+            "description" => $_GET['description'], 
+            "price" => $_GET['price'],
+            "stock" => $_GET['stock']
+        ));
         
-        $tab_g = ModelGlasses::getAllGlasses();
-        $controller='glasses';
+        $tab_g = ModelGlasses::selectAll();
+        $controller=self::$object;
         $view='created';
         $pagetitle='Article créé';
         require File::build_path(array('view', 'view.php'));
@@ -47,7 +53,8 @@ class ControllerGlasses {
     public static function delete() {
         $id = $_GET['glassesid'];
         ModelGlasses::delete($id);
-        $controller='glasses';
+        $tab_g=ModelGlasses::selectAll();
+        $controller=self::$object;
         $view='deleted';
         $pagetitle='Article supprimé';
         require File::build_path(array('view', 'view.php'));
@@ -56,26 +63,23 @@ class ControllerGlasses {
     public static function update(){
         $id = $_GET['glassesid'];
         $g = ModelGlasses::select($id);
-        $controller='glasses';
+        $controller=self::$object;
         $view='update';
         $pagetitle='Maj dun article';
         require File::build_path(array('view','view.php'));
     }
 
     public static function updated(){
-        $data = array(
-            "glassesid" => $_GET['glassesid'],
-            "title" => $_GET['title'],
-            "description" => $_GET['description'],
-            "price" => $_GET['price'],
-            "newglassesid" => $_GET['newglassesid'],
-            "newtitle" => $_GET['newtitle'],
-            "newdescription" => $_GET['newdescription'],
-            "newprice" => $_GET['newprice']
+        $values = array();
+        !empty($_GET['newtitle']) ? $values['title'] = $_GET['newtitle'] : "";
+        !empty($_GET['newdescription']) ? $values["description"] = $_GET['newdescription'] : "";
+        !empty($_GET['newprice']) ? $values['price'] = ($_GET['newprice']) : "";
+        !empty($_GET['newstock']) ? $values['stock'] = ($_GET['newstock']) : "";
+        ModelGlasses::update($values,array(
+            "id" => $_GET['newglassesid']
+            )
         );
-        $id = $_GET['glassesid'];
-        ModelGlasses::update($data);
-        $controller='glasses';
+        $controller=self::$object;
         $view='updated';
         $pagetitle='Maj dun article';
         require File::build_path(array('view','view.php'));
