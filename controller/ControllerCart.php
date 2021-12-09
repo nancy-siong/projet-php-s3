@@ -110,7 +110,7 @@ class ControllerCart extends Controller
 
 
     public static function delete()
-    {
+{
         $trajet = $_GET['trajet'];
         ModelTrajet::delete($trajet);
 

@@ -30,13 +30,25 @@ Class ControllerUser extends Controller{
     }
 
     public static function update(){
-        $login = $_GET['login'];
-        $u = ModelUser::select($login);
-        $controller='user';
-        $view='update';
-        $pagetitle="Mise à jour";
-        $isUpdating=true;
-        require File::build_path(array('view','view.php'));
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $login = $_GET['login'];
+                $u = ModelUser::select($login);
+                $controller='user';
+                $view='update';
+                $pagetitle="Mise à jour";
+                $isUpdating=true;
+                require File::build_path(array('view','view.php'));
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+            require File::build_path(array('view','view.php'));
+        }
     }
 
     public static function updated(){
@@ -57,23 +69,47 @@ Class ControllerUser extends Controller{
     }
 
     public static function delete(){
-        $login = $_GET['login'];
-        ModelUser::delete($login);
-        $tab_u = ModelUser::selectAll();
-        $controller='user';
-        $view='deleted';
-        $pagetitle='Suppression utilisateur';
-        require File::build_path(array('view','view.php')); 
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $login = $_GET['login'];
+                ModelUser::delete($login);
+                $tab_u = ModelUser::selectAll();
+                $controller='user';
+                $view='deleted';
+                $pagetitle='Suppression utilisateur';
+                require File::build_path(array('view','view.php')); 
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+                require File::build_path(array('view','view.php'));
+        }
 
 
     }
     
     public static function create() {
-        $controller='user';
-        $view='update';
-        $pagetitle='Inscription';
-        $isUpdating=false;
-        require File::build_path(array('view','view.php'));
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $controller='user';
+                $view='update';
+                $pagetitle='Créer un nouveau compte';
+                $isUpdating=false;
+                require File::build_path(array('view','view.php'));
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+                require File::build_path(array('view','view.php'));
+        }
     }
 
     public static function created() {
@@ -133,21 +169,45 @@ Class ControllerUser extends Controller{
     }
 
     public static function setAdmin() {
-        $login = $_GET['login'];
-        ModelUser::setAdmin($login);
-        $controller = 'user';
-        $view = 'setAdminDone';
-        $pagetitle = 'Administrateur créé';
-        require File::build_path(array('view', 'view.php')); 
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $login = $_GET['login'];
+                ModelUser::setAdmin($login);
+                $controller = 'user';
+                $view = 'setAdminDone';
+                $pagetitle = 'Administrateur créé';
+                require File::build_path(array('view', 'view.php')); 
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+            require File::build_path(array('view','view.php'));
+        }
     }
 
     public static function removeAdmin() {
-        $login = $_GET['login'];
-        ModelUser::removeAdmin($login);
-        $controller = 'user';
-        $view = 'removeAdminDone';
-        $pagetitle = 'Cet utilisateur n\'est plus administrateur';
-        require File::build_path(array('view', 'view.php')); 
+        if (isset($_SESSION['user'])) {
+            if($_SESSION['user']->getIsAdmin() == 1) {
+                $login = $_GET['login'];
+                ModelUser::removeAdmin($login);
+                $controller = 'user';
+                $view = 'removeAdminDone';
+                $pagetitle = 'Cet utilisateur n\'est plus administrateur';
+                require File::build_path(array('view', 'view.php')); 
+            }
+            else {
+                $view='error';
+                require File::build_path(array('view','view.php'));
+            }
+        }
+        else {
+            $view='error';
+            require File::build_path(array('view','view.php'));
+        }
     }
 
     public static function disconnect() {
