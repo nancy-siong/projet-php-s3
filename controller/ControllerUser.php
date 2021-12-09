@@ -130,7 +130,6 @@ Class ControllerUser extends Controller{
             $pagetitle='Connecté';
             require File::build_path(array('view', 'view.php'));
         }
-        
     }
 
     public static function setAdmin() {
@@ -150,4 +149,13 @@ Class ControllerUser extends Controller{
         $pagetitle = 'Cet utilisateur n\'est plus administrateur';
         require File::build_path(array('view', 'view.php')); 
     }
+
+    public static function disconnect() {
+        session_unset();
+        $tab_g = ModelGlasses::selectAll();
+        $controller = 'user';
+        $view='disconnect';
+        require File::build_path(array('view', 'view.php'));
+    }
+
 }
