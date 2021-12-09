@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array('model','ModelUser.php'));
+require_once File::build_path(array('lib','Security.php'));
 
 Class ControllerUser {
 
@@ -38,6 +39,7 @@ Class ControllerUser {
         $controller='user';
         $view='update';
         $pagetitle="Mise à jour";
+        $isUpdating=true;
         require File::build_path(array('view','view.php'));
     }
 
@@ -46,10 +48,10 @@ Class ControllerUser {
             "login" => $_GET['login'],
             "name" => $_GET['name'],
             "surname" => $_GET['surname'],
-            "password" => $_GET['password'],
+            "password" => Security::hacher($_GET['password']),
             "newname" => $_GET['newname'],
             "newsurname" => $_GET['newsurname'],
-            "newpassword" => $_GET['newpassword']
+            "newpassword" => Security::hacher($_GET['newpassword'])
         );
         ModelUser::update($data);
         $controller='user';
@@ -73,18 +75,23 @@ Class ControllerUser {
     
     public static function create() {
         $controller='user';
-        $view='create';
+        $view='update';
         $pagetitle='Inscription';
+        $isUpdating=false;
         require File::build_path(array('view','view.php'));
     }
 
     public static function created() {
         $data = array (
-            "newpassword" => $_GET['newpassword'],
-            "confirmedpassword" => $_GET['confirmed_password']
+            "newpassword" => Security::hacher($_GET['newpassword']),
+            "confirmed_password" => Security::hacher($_GET['confirmed_password'])
         );
         if (ModelUser::passwordMatched($data)) {
-            $u = new ModelUser($_GET['login'], $_GET['password'], $_GET['name'], $_GET['surname']);
+            $u = new ModelUser(
+                $_GET['login'], 
+                Security::hacher($_GET['newpassword']), 
+                $_GET['newname'], 
+                $_GET['newsurname']);
             $u -> save();
             $tab_u = ModelUser::getAllUsers();
             $controller='user';
@@ -111,7 +118,7 @@ Class ControllerUser {
     public static function connected() {
         $data = array(
             "login" => $_GET['login'],
-            "password" => $_GET['password']
+            "password" => Security::hacher($_GET['password'])
         );
         $u = ModelUser::connect($data);
         if($u == false){

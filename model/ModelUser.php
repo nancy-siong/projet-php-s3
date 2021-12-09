@@ -70,7 +70,6 @@ class ModelUser extends Model{
 
     public static function update($data){
         try {
-           
             if($data['newname'] == null){
                 $data['newname'] = $data['name'];
             }
@@ -138,7 +137,7 @@ class ModelUser extends Model{
     }
 
     public static function passwordMatched($data) {
-        return $data['newpassword'] == $data['confirmedpassword'];
+        return $data['newpassword'] == $data['confirmed_password'];
     }
     
     public static function connect($data) {
