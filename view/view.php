@@ -11,28 +11,62 @@
             if (isset($_SESSION['user'])) { ?>
                 <div>Bonjour <?=$_SESSION['user']->getName()?></div>
             <?php } ?>
+
             <ul>
-                <li><a href="index.php?action=readAll&controller=user"> Liste des clients </a></li>
+
                 <li><a href="index.php?action=readAll&controller=glasses"> Liste des lunettes </a></li>
-                <li><a href="index.php?action=create&controller=glasses"> Créer un article </a></li>
+
+                <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
+                
+                <!-- (ADMIN) Liste des clients -->
+
+                <?php
+                if (isset($_SESSION['user'])) {
+                    if($_SESSION['user']->getIsAdmin() == 1) { ?>
+                        <li><a href="index.php?action=readAll&controller=user"> Liste des clients </a></li>
+                    <?php
+                    }
+                } ?>
+
+                <!-- (ADMIN) Créer un article -->
+
+                <?php
+                if (isset($_SESSION['user'])) {
+                    if($_SESSION['user']->getIsAdmin() == 1) { ?>
+                        <li><a href="index.php?action=create&controller=glasses"> Créer un article </a></li>
+                    <?php
+                    }
+                } ?>
+
+                <!-- (ADMIN & VISITEUR) Créer un compte -->
                 
                 <?php
                 if (isset($_SESSION['user'])) {
                     if($_SESSION['user']->getIsAdmin() == 1) { ?>
                         <li><a href="index.php?action=create&controller=user"> Créer un utilisateur </a></li>
-                    <?php }
-                    else if($_SESSION['user']->getIsAdmin() == 0) { ?>
+                    <?php 
+                    }
+                } 
+                else { ?>
                         <li><a href="index.php?action=create&controller=user"> S'inscrire </a></li>
-                    <?php }
+                <?php 
                 } ?>
-                    
-
-
                 
-                <li><a href="index.php?action=read&controller=cart"> Votre panier </a></li>
-                <li><a href="index.php?action=connect&controller=user"> Se connecter </a></li>
-                <li><a href="index.php?action=disconnect&controller=user"> Se déconnecter </a></li>
+                    
+                <!-- (VISITEUR) Se connecter -->
+                
+                <?php
+                if (!isset($_SESSION['user'])) { ?>
+                    <li><a href="index.php?action=connect&controller=user"> Se connecter </a></li>
+                <?php
+                } 
+                else { ?>
+                    <li><a href="index.php?action=disconnect&controller=user"> Se déconnecter </a></li>
+                <?php
+                } ?>
+
             </ul>
+
         </header>
         
         <?php

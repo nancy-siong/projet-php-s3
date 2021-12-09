@@ -1,1 +1,1 @@
-<p>Erreur ! Cet utilisateur n'existe pas !</p>
+<p>Oops ! Une erreur est survenue, veuillez réessayer</p>
